@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local agent/tooling state
+.agents/
+.claude/
+.codex/
+.gemini/
+.impeccable/
+docs/superpowers/
+tmp/
