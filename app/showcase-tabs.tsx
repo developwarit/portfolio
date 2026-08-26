@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import { ProjectDetail, type ProjectDetailData } from "./project-detail";
 
 type ShowcaseItem = {
   title: string;
@@ -10,6 +11,11 @@ type ShowcaseItem = {
   meta: string;
   image?: string;
   href?: string;
+  tags?: string[];
+  longDescription?: string;
+  github?: string;
+  technologies?: string[];
+  features?: string[];
 };
 
 type CertificateItem = {
@@ -22,26 +28,69 @@ type TechItem = {
   icon: string;
 };
 
+const projectDetails: ProjectDetailData[] = [
+  {
+    title: "W10 Dashboards",
+    description: "ระบบติดตามงานซ่อมและจัดซื้อ W10",
+    longDescription:
+      "ระบบติดตามงานซ่อมและจัดซื้อ W10 สำหรับแผนก หสบ-ซ. เป็นแดชบอร์ดที่ใช้ตรวจสอบสถานะ Work Order, ติดตามงานค้าง, และดูข้อมูล SAP ERP แบบเรียลไทม์ ช่วยให้หัวหน้าแผนกสามารถบริหารจัดการงานซ่อมได้อย่างมีประสิทธิภาพ",
+    image: "/projects/w10-jet.png",
+    href: "https://w10-jet.vercel.app/",
+    role: "Fullstack Developer",
+    problem: "แผนกมีงานซ่อมจำนวนมาก ต้องติดตามสถานะ Work Order หลายร้อยรายการ พร้อมทั้งต้องเชื่อมต่อกับ SAP ERP ทำให้การบริหารจัดการยุ่งยากและเสียเวลา",
+    solution: "พัฒนาระบบแดชบอร์ดแบบ Real-time ที่แสดงสถานะ Work Order ทั้งหมด พร้อมกราฟวิเคราะห์และระบบกรองข้อมูล ทำให้เห็นภาพรวมทั้งหมดในที่เดียว",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Chart.js", "REST API"],
+    features: [
+      "แดชบอร์ดสรุปสถานะ Work Order แบบเรียลไทม์",
+      "ติดตามงานค้างและสถานะ SAP ERP",
+      "แสดงสถิติและกราฟวิเคราะห์ข้อมูล",
+      "รองรับการกรองข้อมูลตามแผนกและสถานะ",
+    ],
+    learned: "ได้เรียนรู้การทำงานกับ SAP ERP API, การออกแบบ Dashboard ที่แสดงข้อมูลจำนวนมากให้เข้าใจง่าย, และการจัดการ State ที่ซับซ้อน",
+  },
+  {
+    title: "OT Plus",
+    description: "ระบบลงเวลา OT สำหรับบันทึกการทำงานล่วงเวลา",
+    longDescription:
+      "ระบบลงเวลา OT สำหรับบันทึกการทำงานล่วงเวลาของหัวหน้าหมวด พร้อมคำนวณชั่วโมงและส่งข้อมูลเข้า Google Sheet รายบุคคล ช่วยให้การจัดการเวลาทำงานล่วงเวลาเป็นระบบและตรวจสอบง่าย",
+    image: "/projects/ot-plus.gif",
+    href: "https://ot-plus.vercel.app/",
+    role: "Frontend Developer",
+    problem: "การบันทึกเวลาทำงานล่วงเวลายังใช้กระดาษหรือ Excel ทำให้ข้อมูลกระจัดกระจาย คำนวณผิดพลาด และตรวจสอบยาก",
+    solution: "พัฒนาระบบเว็บสำหรับบันทึก OT ที่คำนวณชั่วโมงอัตโนมัติและส่งข้อมูลเข้า Google Sheet ทันที ทำให้ตรวจสอบและจัดการได้ง่าย",
+    technologies: ["React", "TypeScript", "Google Sheets API", "Tailwind CSS"],
+    features: [
+      "บันทึกและตรวจสอบข้อมูล OT รายบุคคล",
+      "คำนวณชั่วโมงทำงานล่วงเวลาอัตโนมัติ",
+      "ส่งข้อมูลเข้า Google Sheet แบบเรียลไทม์",
+      "ระบบสิทธิ์การเข้าถึงตามหมวด",
+    ],
+    learned: "ได้เรียนรู้การเชื่อมต่อ Google Sheets API, การออกแบบระบบสิทธิ์ผู้ใช้, และการสร้าง Form ที่ใช้งานง่าย",
+  },
+];
+
 const tabs = [
   {
     id: "projects",
     label: "Projects",
     items: [
       {
-        title: "Portfolio Website",
+        title: "W10 Dashboards",
         description:
-          "Personal portfolio with animated hero, showcase tabs, tech stack, and responsive contact flow.",
+          "ระบบติดตามงานซ่อมและจัดซื้อ W10 — แดชบอร์ดสำหรับตรวจสอบสถานะ Work Order, ติดตามงานค้าง, และดูข้อมูล SAP ERP แบบเรียลไทม์",
         meta: "Live preview",
-        image: "/project-preview.svg",
-        href: "https://portofolio-rho-sand-92.vercel.app/",
+        image: "/projects/w10-jet.png",
+        href: "https://w10-jet.vercel.app/",
+        tags: ["React", "Dashboard", "SAP ERP"],
       },
       {
-        title: "Portfolio Source",
+        title: "OT Plus",
         description:
-          "Next.js source repository for reviewing structure, components, and frontend implementation.",
-        meta: "GitHub repository",
-        image: "/project-preview.svg",
-        href: "https://github.com/developwarit/portfolio",
+          "ระบบลงเวลา OT สำหรับบันทึกการทำงานล่วงเวลาของหัวหน้าหมวด พร้อมคำนวณชั่วโมงและส่งข้อมูลเข้า Google Sheet รายบุคคล",
+        meta: "Live preview",
+        image: "/projects/ot-plus.gif",
+        href: "https://ot-plus.vercel.app/",
+        tags: ["React", "Google Sheets", "OT System"],
       },
     ],
   },
@@ -110,11 +159,20 @@ const techStack: TechItem[] = [
 
 export function ShowcaseTabs() {
   const [active, setActive] = useState(tabs[0]);
+  const [selectedProject, setSelectedProject] = useState<ProjectDetailData | null>(null);
   const isTechStack = active.id === "stack";
   const isCertificates = active.id === "certificates";
 
+  const handleDetailsClick = (title: string) => {
+    const project = projectDetails.find((p) => p.title === title);
+    if (project) {
+      setSelectedProject(project);
+    }
+  };
+
   return (
     <div className="mt-9">
+      <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />
       <div
         className="mx-auto grid max-w-3xl gap-2 rounded-[2rem] border border-white/10 bg-white/8 p-2 sm:grid-cols-3"
         role="tablist"
@@ -220,7 +278,7 @@ export function ShowcaseTabs() {
             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
           >
             {(active.items as ShowcaseItem[]).map((item, index) => (
-              <ProjectCard item={item} index={index} key={item.title} />
+              <ProjectCard item={item} index={index} key={item.title} onDetailsClick={handleDetailsClick} />
             ))}
           </motion.div>
         )}
@@ -232,9 +290,11 @@ export function ShowcaseTabs() {
 function ProjectCard({
   item,
   index,
+  onDetailsClick,
 }: {
   item: ShowcaseItem;
   index: number;
+  onDetailsClick: (title: string) => void;
 }) {
   return (
     <motion.article
@@ -259,11 +319,24 @@ function ProjectCard({
       <h3 className="mt-4 text-xl font-bold tracking-[-0.01em] text-white text-balance">
         {item.title}
       </h3>
-      <p className="mt-3 line-clamp-2 text-sm font-medium leading-6 text-zinc-400">
+      <p className="mt-3 line-clamp-3 text-sm font-medium leading-6 text-zinc-400">
         {item.description}
       </p>
 
-      <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+      {item.tags && item.tags.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {item.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-zinc-400"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div className="mt-auto flex items-center justify-between gap-4 pt-5">
         {item.href ? (
           <a
             href={item.href}
@@ -279,26 +352,14 @@ function ProjectCard({
           </span>
         )}
 
-        {item.href ? (
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
-          >
-            Details
-            <span aria-hidden="true">-&gt;</span>
-          </a>
-        ) : (
-          <button
-            type="button"
-            className="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-zinc-300"
-            disabled
-          >
-            Details
-            <span aria-hidden="true">-&gt;</span>
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => onDetailsClick(item.title)}
+          className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+        >
+          Details
+          <span aria-hidden="true">-&gt;</span>
+        </button>
       </div>
     </motion.article>
   );
