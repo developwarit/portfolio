@@ -68,6 +68,25 @@ const projectDetails: ProjectDetailData[] = [
     ],
     learned: "ได้เรียนรู้การเชื่อมต่อ Google Sheets API, การออกแบบระบบสิทธิ์ผู้ใช้, และการสร้าง Form ที่ใช้งานง่าย",
   },
+  {
+    title: "SafeMaeMoh",
+    description: "ระบบรายงานเหตุและจัดการความปลอดภัย วิทยาลัยเทคนิค กฟผ. แม่เมาะ",
+    longDescription:
+      "ระบบแจ้งเหตุด่วน 24 ชั่วโมงสำหรับวิทยาลัยเทคนิค กฟผ. แม่เมาะ ช่วยให้นักเรียนและเจ้าหน้าที่สามารถแจ้งเหตุฉุกเฉิน อุบัติเหตุ สารเคมีรั่วไหล หรือภัยไฟป่าได้ทันที พร้อมแผนที่วิทยาเขต สถิติความปลอดภัย และระบบจัดการเหตุการณ์",
+    image: "/projects/safemaemoh.png",
+    href: "https://emergencyegt.vercel.app/",
+    role: "Frontend Developer",
+    problem: "วิทยาลัยยังไม่มีระบบแจ้งเหตุฉุกเฉินที่เป็นมาตรฐาน ทำให้การรายงานเหตุล่าช้า ข้อมูลกระจัดกระจาย และตรวจสอบย้อนหลังยาก",
+    solution: "พัฒนาระบบเว็บแจ้งเหตุฉุกเฉินแบบ Real-time ที่รองรับการแจ้งเหตุหลายประเภท พร้อมแผนที่วิทยาเขต สถิติวิเคราะห์ และระบบจัดการสถานะเหตุการณ์",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Firebase", "Google Maps"],
+    features: [
+      "แจ้งเหตุฉุกเฉินได้ 24 ชม. พร้อมระบุประเภทเหตุ",
+      "แผนที่วิทยาเขตแบบ interactive แสดงจุดเสี่ยง",
+      "สถิติความปลอดภัยแบบเรียลไทม์",
+      "รองรับการแจ้งเหตุแบบไม่ระบุตัวตน (Anonymous)",
+    ],
+    learned: "ได้เรียนรู้การออกแบบระบบแจ้งเหตุฉุกเฉิน, การทำงานกับ Real-time Database, และการสร้าง UI ที่ใช้งานง่ายในสถานการณ์เร่งด่วน",
+  },
 ];
 
 const tabs = [
@@ -93,6 +112,16 @@ const tabs = [
         image: "/projects/ot-plus.gif",
         href: "https://ot-plus.vercel.app/",
         tags: ["React", "Google Sheets", "OT System"],
+        role: "Frontend Developer",
+      },
+      {
+        title: "SafeMaeMoh",
+        description:
+          "Emergency reporting system for EGAT Technical College with real-time alerts, campus map, and safety statistics.",
+        meta: "Live preview",
+        image: "/projects/safemaemoh.png",
+        href: "https://emergencyegt.vercel.app/",
+        tags: ["React", "Firebase", "Emergency"],
         role: "Frontend Developer",
       },
     ],
@@ -274,7 +303,7 @@ export function ShowcaseTabs() {
         ) : (
           <motion.div
             key="projects"
-            className="mt-10 grid gap-6 md:grid-cols-2"
+            className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}

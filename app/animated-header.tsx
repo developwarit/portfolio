@@ -4,17 +4,31 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { scrollToSection } from "./smooth-scroll";
 
-const navItems = [
-  { label: "About", section: "about" },
-  { label: "Journey", section: "experience" },
-  { label: "Projects", section: "work" },
-  { label: "Skills", section: "stack" },
-  { label: "Contact", section: "contact" },
-];
+// Thai translations
+const th: Record<string, string> = {
+  "nav.about": "เกี่ยวกับ",
+  "nav.journey": "เส้นทาง",
+  "nav.projects": "ผลงาน",
+  "nav.skills": "ทักษะ",
+  "nav.courses": "คอร์สเรียน",
+  "nav.blog": "บทความ",
+  "nav.contact": "ติดต่อ",
+};
 
 export function AnimatedHeader() {
+  const t = (key: string) => th[key] || key;
   const [activeSection, setActiveSection] = useState("top");
   const [hasScrolled, setHasScrolled] = useState(false);
+
+  const navItems = [
+    { label: t("nav.about"), section: "about" },
+    { label: t("nav.journey"), section: "experience" },
+    { label: t("nav.projects"), section: "work" },
+    { label: t("nav.skills"), section: "stack" },
+    { label: t("nav.courses"), href: "/courses" },
+    { label: t("nav.blog"), href: "/blog" },
+    { label: t("nav.contact"), section: "contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setHasScrolled(window.scrollY > 32);
@@ -42,9 +56,11 @@ export function AnimatedHeader() {
     );
 
     navItems.forEach((item) => {
-      const element = document.getElementById(item.section);
-      if (element) {
-        observer.observe(element);
+      if (item.section) {
+        const element = document.getElementById(item.section);
+        if (element) {
+          observer.observe(element);
+        }
       }
     });
 
@@ -77,7 +93,7 @@ export function AnimatedHeader() {
           onClick={() => scrollToSection("top")}
           className="font-mono text-sm font-semibold tracking-[0.18em] text-zinc-300 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
         >
-          warit.dev
+          dev.warit
         </button>
 
         <nav
@@ -85,17 +101,31 @@ export function AnimatedHeader() {
           className="flex items-center gap-5 text-sm font-semibold text-zinc-500 sm:gap-9"
         >
           {navItems.map((item) => {
+            // External link (courses page)
+            if (item.href) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="relative py-1 transition hover:text-zinc-200"
+                >
+                  {item.label}
+                </a>
+              );
+            }
+
             const isActive = activeSection === item.section;
+            const section = item.section!;
 
             return (
               <button
-                key={item.section}
+                key={section}
                 type="button"
-                onClick={() => scrollToSection(item.section)}
+                onClick={() => scrollToSection(section)}
                 className={`relative py-1 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
                   isActive ? "text-white" : "hover:text-zinc-200"
                 } ${
-                  item.section === "contact"
+                  section === "contact"
                     ? "hidden sm:inline"
                     : ""
                 }`}

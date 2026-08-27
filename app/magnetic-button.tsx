@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import type { ReactNode } from "react";
 
 type MagneticButtonProps = {
@@ -8,6 +8,8 @@ type MagneticButtonProps = {
   className?: string;
   href?: string;
   strength?: number;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 export function MagneticButton({
@@ -15,6 +17,8 @@ export function MagneticButton({
   className = "",
   href,
   strength = 0.35,
+  type = "button",
+  disabled = false,
 }: MagneticButtonProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -41,12 +45,14 @@ export function MagneticButton({
       href={href}
       target={href ? "_blank" : undefined}
       rel={href ? "noreferrer" : undefined}
+      type={href ? undefined : type}
+      disabled={disabled}
       className={className}
       style={{ x: smoothX, y: smoothY }}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: disabled ? 1 : 1.05 }}
+      whileTap={{ scale: disabled ? 1 : 0.97 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {children}

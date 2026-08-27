@@ -11,7 +11,7 @@ type TerminalLine = {
 const commands: Record<string, string[]> = {
   whoami: ["Warit Panyeam — Frontend Developer"],
   skills: ["React, Next.js, TypeScript, Tailwind CSS, Flutter, Node.js"],
-  contact: ["📧 warit@example.com", "🔗 github.com/developwarit", "Let's build something together!"],
+  contact: ["📧 warit.panyeamm@gmail.com", "🔗 github.com/developwarit", "Let's build something together!"],
   help: ["Available commands: whoami, skills, contact, projects, clear, help"],
   projects: [
     "📁 W10 Dashboards — Maintenance tracking system",
@@ -76,7 +76,7 @@ export function TerminalMode() {
       <motion.button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-[70] flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/90 px-4 py-2.5 text-xs font-mono font-semibold text-zinc-400 shadow-lg backdrop-blur-sm transition hover:border-white/30 hover:text-white"
+        className="fixed bottom-6 right-6 z-[70] flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/90 px-4 py-2.5 text-xs font-mono font-semibold text-zinc-400 shadow-lg backdrop-blur-sm transition hover:border-white/30 hover:text-white"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 3, duration: 0.5 }}

@@ -27,7 +27,7 @@ export function TextReveal({
             className="inline-block"
             initial={{ y: "110%", opacity: 0 }}
             whileInView={{ y: "0%", opacity: 1 }}
-            viewport={{ once: true, amount: 0.8 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{
               duration: 0.65,
               delay: delay + i * staggerDelay,
@@ -64,7 +64,7 @@ export function CharacterReveal({
             className="inline-block"
             initial={{ y: "120%", opacity: 0 }}
             whileInView={{ y: "0%", opacity: 1 }}
-            viewport={{ once: true, amount: 0.8 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{
               duration: 0.5,
               delay: delay + i * staggerDelay,

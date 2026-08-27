@@ -4,10 +4,27 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const loaderIcons = ["</>", "@", "www"];
-const loaderDelayMs = 1500;
+const loaderDelayMs = 2500;
 
 export function SiteLoader() {
   const [isVisible, setIsVisible] = useState(true);
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "warit panyeam";
+
+  useEffect(() => {
+    // Typing animation
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setDisplayText(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 80);
+
+    return () => clearInterval(typingInterval);
+  }, []);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsVisible(false), loaderDelayMs);
@@ -71,11 +88,12 @@ export function SiteLoader() {
 
             <motion.div
               className="mt-6 rounded-full border border-white/12 bg-white/6 px-5 py-2 font-mono text-xs font-semibold tracking-[0.18em] text-zinc-400"
-              initial={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.24 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              www.warit.dev
+              {displayText}
+              <span className="animate-pulse">_</span>
             </motion.div>
           </motion.div>
         </motion.div>

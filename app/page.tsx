@@ -108,14 +108,14 @@ export default function Home() {
               </p>
               <div className="mt-2">
                 <RotatingText
-                  texts={["Clean interfaces _", "Practical applications _", "Real-world solutions _", "Ideas into products _"]}
+                  texts={["Learn → Build → Share _", "เรียนรู้ สร้าง แบ่งปัน _", "From Ideas to Reality _", "Growing Together _"]}
                   className="text-xl font-medium text-zinc-400"
                   interval={3000}
                 />
               </div>
               <TextReveal
                 as="p"
-                text="Building clean interfaces and practical web applications. Passionate about learning new technologies and turning ideas into real products that solve everyday problems."
+                text="I build modern web applications from idea to deployment — crafting intuitive interfaces, building backend systems, and working with SQL databases."
                 className="mt-4 max-w-xl text-base leading-8 text-zinc-400"
                 delay={0.3}
                 staggerDelay={0.02}
@@ -187,14 +187,15 @@ export default function Home() {
         <div className="grid gap-12 lg:grid-cols-[1fr_0.58fr] lg:items-center">
           <div className="max-w-2xl">
             <p className="font-mono text-xs uppercase tracking-[0.42em] text-zinc-600">
-              About Me
+              ABOUT ME
             </p>
             <h2 className="mt-6 text-5xl font-black leading-[0.9] tracking-[-0.035em] text-white text-balance sm:text-7xl">
               Warit
               <span className="block">Panyeam</span>
-            </h2>              <TextReveal
+            </h2>
+              <TextReveal
                 as="p"
-                text="I started learning web development because I wanted to build things that people actually use. I enjoy turning ideas into clean, responsive interfaces — especially dashboards and tools that solve real problems. Currently focused on frontend craft while exploring fullstack capabilities."
+                text="สวัสดีครับ ผมวฤทธิ์ ผู้ที่กำลังเรียนรู้และหลงใหลในการสร้างสรรค์สิ่งต่าง ๆ ผ่านเทคโนโลยี ผมสนใจการพัฒนาเว็บไซต์ การออกแบบ UX/UI รวมถึงการนำ AI และ Vibe Coding มาช่วยเปลี่ยนไอเดียให้กลายเป็นสิ่งที่ใช้งานได้จริง"
                 className="mt-7 max-w-xl text-base leading-8 text-zinc-400"
                 delay={0.2}
                 staggerDelay={0.02}
@@ -368,6 +369,21 @@ export default function Home() {
           separator="•"
         />
       </div>
+
+      {/* AI Tools Section */}
+      <section className="py-16">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <h2 className="text-center text-2xl font-bold text-white mb-8">ใช้งานเครื่องมือ AI อยู่บ่อยๆ</h2>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073z"/></svg><span className="font-medium">ChatGPT</span></div>
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A7.17 7.17 0 0 1 4.83 16.83A7.13 7.13 0 0 1 4 12a7.14 7.14 0 0 1 .84-3.58A7.17 7.17 0 0 1 12 0a7.17 7.17 0 0 1 7.17 7.17c0 1.3-.36 2.51-.98 3.57A7.13 7.13 0 0 1 19.17 12c0 1.76-.67 3.37-1.79 4.58A7.17 7.17 0 0 1 12 24z"/></svg><span className="font-medium">Gemini</span></div>
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/></svg><span className="font-medium">Microsoft Copilot</span></div>
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.798c.588-.336.588-1.22 0-1.556L4.709 8.803C4.081 8.44 3.471 9.01 3.471 9.727v8.501c0 .717.61 1.287 1.238.927zM19.291 8.045l-4.72 2.798c-.588.336-.588 1.22 0 1.556l4.72 2.798c.628.363 1.238-.207 1.238-.927V8.972c0-.717-.61-1.287-1.238-.927zM15.049 3.143L9.826 14.226c-.392.726.118 1.621.94 1.621h10.446c.822 0 1.332-.895.94-1.621L16.951 3.143c-.392-.726-1.51-.726-1.902 0z" transform="rotate(-90 12 12)"/></svg><span className="font-medium">Claude</span></div>
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg><span className="font-medium">Perplexity</span></div>
+            <div className="flex items-center gap-2 text-zinc-400 hover:text-white transition"><svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12l-6-10.5v7H6l6 10.5v-7H24z"/></svg><span className="font-medium">Cursor</span></div>
+          </div>
+        </div>
+      </section>
 
       <MotionSection
         id="contact"
