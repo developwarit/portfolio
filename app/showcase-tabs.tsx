@@ -16,6 +16,7 @@ type ShowcaseItem = {
   github?: string;
   technologies?: string[];
   features?: string[];
+  role?: string;
 };
 
 type CertificateItem = {
@@ -77,20 +78,22 @@ const tabs = [
       {
         title: "W10 Dashboards",
         description:
-          "ระบบติดตามงานซ่อมและจัดซื้อ W10 — แดชบอร์ดสำหรับตรวจสอบสถานะ Work Order, ติดตามงานค้าง, และดูข้อมูล SAP ERP แบบเรียลไทม์",
+          "Maintenance dashboard for tracking work orders, pending tasks, and SAP ERP integration in real-time.",
         meta: "Live preview",
         image: "/projects/w10-jet.png",
         href: "https://w10-jet.vercel.app/",
         tags: ["React", "Dashboard", "SAP ERP"],
+        role: "Fullstack Developer",
       },
       {
         title: "OT Plus",
         description:
-          "ระบบลงเวลา OT สำหรับบันทึกการทำงานล่วงเวลาของหัวหน้าหมวด พร้อมคำนวณชั่วโมงและส่งข้อมูลเข้า Google Sheet รายบุคคล",
+          "Overtime tracking system for logging work hours, auto-calculating totals, and syncing data to Google Sheets.",
         meta: "Live preview",
         image: "/projects/ot-plus.gif",
         href: "https://ot-plus.vercel.app/",
         tags: ["React", "Google Sheets", "OT System"],
+        role: "Frontend Developer",
       },
     ],
   },
@@ -319,6 +322,11 @@ function ProjectCard({
       <h3 className="mt-4 text-xl font-bold tracking-[-0.01em] text-white text-balance">
         {item.title}
       </h3>
+      {item.role && (
+        <p className="mt-2 text-xs font-semibold text-blue-400">
+          {item.role}
+        </p>
+      )}
       <p className="mt-3 line-clamp-3 text-sm font-medium leading-6 text-zinc-400">
         {item.description}
       </p>

@@ -9,7 +9,7 @@ type TerminalLine = {
 };
 
 const commands: Record<string, string[]> = {
-  whoami: ["Warit — Frontend Developer & Designer"],
+  whoami: ["Warit Panyeam — Frontend Developer"],
   skills: ["React, Next.js, TypeScript, Tailwind CSS, Flutter, Node.js"],
   contact: ["📧 warit@example.com", "🔗 github.com/developwarit", "Let's build something together!"],
   help: ["Available commands: whoami, skills, contact, projects, clear, help"],

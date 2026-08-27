@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { scrollToSection } from "./smooth-scroll";
 
 const navItems = [
-  { label: "Home", section: "top" },
   { label: "About", section: "about" },
-  { label: "Portfolio", section: "work" },
+  { label: "Journey", section: "experience" },
+  { label: "Projects", section: "work" },
+  { label: "Skills", section: "stack" },
   { label: "Contact", section: "contact" },
 ];
 
@@ -94,7 +95,7 @@ export function AnimatedHeader() {
                 className={`relative py-1 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
                   isActive ? "text-white" : "hover:text-zinc-200"
                 } ${
-                  item.section === "about" || item.section === "contact"
+                  item.section === "contact"
                     ? "hidden sm:inline"
                     : ""
                 }`}

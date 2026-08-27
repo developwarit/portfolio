@@ -9,7 +9,6 @@ import { TerminalMode } from "./terminal-mode";
 import { Timeline } from "./timeline";
 import { MarqueeText } from "./marquee-text";
 import { MotionSection } from "./motion-section";
-import { PresentationMode } from "./presentation-mode";
 import { ShowcaseTabs } from "./showcase-tabs";
 import { SiteLoader } from "./site-loader";
 import { SmoothLink } from "./smooth-link";
@@ -20,19 +19,34 @@ const heroTags = ["Next.js", "React", "Flutter", "Node.js", "PostgreSQL", "Tailw
 
 const stackGroups = [
   {
-    title: "Frontend",
-    description: "Interfaces that hold up across devices and real content.",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    title: "Comfortable",
+    description: "Technologies I use daily with confidence.",
+    items: [
+      { name: "React", project: "W10 Dashboards" },
+      { name: "Next.js", project: "Portfolio Website" },
+      { name: "TypeScript", project: "W10 Dashboards, OT Plus" },
+      { name: "Tailwind CSS", project: "All projects" },
+    ],
   },
   {
-    title: "Backend",
-    description: "Application logic, API boundaries, and dependable data flow.",
-    items: ["Node.js", "REST APIs", "Authentication", "Database design"],
+    title: "Learning",
+    description: "Currently exploring and growing in these areas.",
+    items: [
+      { name: "Node.js", project: "Exploring" },
+      { name: "REST APIs", project: "W10 Dashboards" },
+      { name: "Database Design", project: "Learning" },
+      { name: "Authentication", project: "Learning" },
+    ],
   },
   {
     title: "Tools",
     description: "The workflow pieces that turn builds into shipped work.",
-    items: ["Git", "Vercel", "Figma", "Postman"],
+    items: [
+      { name: "Git", project: "All projects" },
+      { name: "Vercel", project: "Deployment" },
+      { name: "Figma", project: "UI Design" },
+      { name: "Postman", project: "API Testing" },
+    ],
   },
 ];
 
@@ -51,8 +65,8 @@ const projectLinks = [
 
 const aboutStats = [
   { label: "Projects Built", value: "04+", icon: "<>" },
-  { label: "Certificates", value: "02", icon: "@" },
-  { label: "Fresh Graduate", value: "2026", icon: "*" },
+  { label: "Real-world Systems", value: "02", icon: "@" },
+  { label: "Technologies in Use", value: "03+", icon: "*" },
 ];
 
 export default function Home() {
@@ -94,14 +108,14 @@ export default function Home() {
               </p>
               <div className="mt-2">
                 <RotatingText
-                  texts={["เว็บไซต์ที่ใช้งานง่าย _", "แอปพลิเคชันที่ตอบโจทย์ _", "ระบบที่ช่วยแก้ปัญหา _", "ไอเดียที่กลายเป็นผลงาน _"]}
+                  texts={["Clean interfaces _", "Practical applications _", "Real-world solutions _", "Ideas into products _"]}
                   className="text-xl font-medium text-zinc-400"
                   interval={3000}
                 />
               </div>
               <TextReveal
                 as="p"
-                text="สนใจการพัฒนาเว็บไซต์ แอปพลิเคชัน และระบบที่ช่วยแก้ปัญหาในชีวิตจริง พร้อมเรียนรู้เทคโนโลยีใหม่ ๆ และเปลี่ยนไอเดียให้กลายเป็นผลงานที่ใช้งานได้จริง"
+                text="Building clean interfaces and practical web applications. Passionate about learning new technologies and turning ideas into real products that solve everyday problems."
                 className="mt-4 max-w-xl text-base leading-8 text-zinc-400"
                 delay={0.3}
                 staggerDelay={0.02}
@@ -124,13 +138,13 @@ export default function Home() {
                 section="work"
                 className="block transition hover:text-white"
               >
-                / ดูผลงานที่ผมสร้าง
+                / explore my selected work
               </SmoothLink>
               <SmoothLink
                 section="contact"
                 className="block transition hover:text-white"
               >
-                / เปิดรับโอกาสในการทำงานและร่วมพัฒนาโปรเจกต์
+                / open to full-time and freelance opportunities
               </SmoothLink>
             </div>
           </div>
@@ -180,7 +194,7 @@ export default function Home() {
               <span className="block">Panyeam</span>
             </h2>              <TextReveal
                 as="p"
-                text="Fresh graduate fullstack developer with a strong interest in modern frontend craft, clean UI systems, and practical backend logic. I focus on building responsive websites that feel clear, usable, and ready to ship."
+                text="I started learning web development because I wanted to build things that people actually use. I enjoy turning ideas into clean, responsive interfaces — especially dashboards and tools that solve real problems. Currently focused on frontend craft while exploring fullstack capabilities."
                 className="mt-7 max-w-xl text-base leading-8 text-zinc-400"
                 delay={0.2}
                 staggerDelay={0.02}
@@ -326,11 +340,16 @@ export default function Home() {
                 <ul className="mt-6 space-y-3">
                   {group.items.map((item) => (
                     <li
-                      key={item}
-                      className="flex items-center gap-3 text-sm text-zinc-300"
+                      key={item.name}
+                      className="flex flex-col gap-1 text-sm text-zinc-300"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-                      {item}
+                      <div className="flex items-center gap-3">
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                        {item.name}
+                      </div>
+                      <span className="ml-5 text-xs text-zinc-500">
+                        {item.project}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -450,17 +469,6 @@ export default function Home() {
             </div>
             <div className="flex gap-4">
               {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-zinc-500 transition hover:text-white"
-                >
-                  {link.label}
-                </a>
-              ))}
-              {projectLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}

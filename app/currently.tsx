@@ -5,18 +5,18 @@ import { motion } from "framer-motion";
 const currentlyItems = [
   {
     emoji: "🚀",
-    label: "Building",
-    text: "Personal Web Projects",
+    label: "Currently Building",
+    text: "Improving real-world dashboard systems and internal tools",
   },
   {
     emoji: "📚",
-    label: "Learning",
-    text: "Fullstack Development",
+    label: "Currently Learning",
+    text: "Backend architecture, APIs, and database design",
   },
   {
     emoji: "🎯",
     label: "Goal",
-    text: "Becoming a better Product-focused Developer",
+    text: "Becoming a product-focused developer who builds meaningful software",
   },
 ];
 
