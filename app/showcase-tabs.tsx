@@ -92,13 +92,13 @@ const projectDetails: ProjectDetailData[] = [
 const tabs = [
   {
     id: "projects",
-    label: "Projects",
+    label: "โปรเจกต์",
     items: [
       {
         title: "W10 Dashboards",
         description:
           "Maintenance dashboard for tracking work orders, pending tasks, and SAP ERP integration in real-time.",
-        meta: "Live preview",
+        meta: "ดูตัวอย่าง",
         image: "/projects/w10-jet.png",
         href: "https://w10-jet.vercel.app/",
         tags: ["React", "Dashboard", "SAP ERP"],
@@ -108,7 +108,7 @@ const tabs = [
         title: "OT Plus",
         description:
           "Overtime tracking system for logging work hours, auto-calculating totals, and syncing data to Google Sheets.",
-        meta: "Live preview",
+        meta: "ดูตัวอย่าง",
         image: "/projects/ot-plus.gif",
         href: "https://ot-plus.vercel.app/",
         tags: ["React", "Google Sheets", "OT System"],
@@ -118,7 +118,7 @@ const tabs = [
         title: "SafeMaeMoh",
         description:
           "Emergency reporting system for EGAT Technical College with real-time alerts, campus map, and safety statistics.",
-        meta: "Live preview",
+        meta: "ดูตัวอย่าง",
         image: "/projects/safemaemoh.png",
         href: "https://emergencyegt.vercel.app/",
         tags: ["React", "Firebase", "Emergency"],
@@ -128,7 +128,7 @@ const tabs = [
   },
   {
     id: "certificates",
-    label: "Certificates",
+    label: "ใบรับรอง",
     items: [
       {
         title: "PKL Internship Certificate",
@@ -142,7 +142,7 @@ const tabs = [
   },
   {
     id: "stack",
-    label: "Tech Stack",
+    label: "เทคโนโลยี",
   },
 ];
 
@@ -206,7 +206,7 @@ export function ShowcaseTabs() {
     <div className="mt-9">
       <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />
       <div
-        className="mx-auto grid max-w-3xl gap-2 rounded-[2rem] border border-white/10 bg-white/8 p-2 sm:grid-cols-3"
+        className="mx-auto grid max-w-3xl gap-2 rounded-[2rem] border border-gray-200 bg-gray-100 p-2 sm:grid-cols-3"
         role="tablist"
         aria-label="Portfolio showcase"
       >
@@ -219,8 +219,8 @@ export function ShowcaseTabs() {
             onClick={() => setActive(tab)}
             className={`rounded-[1.5rem] px-5 py-3 text-sm font-semibold transition ${
               active.id === tab.id
-                ? "bg-white text-zinc-950 sm:bg-zinc-700 sm:text-white"
-                : "text-zinc-400 hover:bg-white/6 hover:text-white"
+                ? "bg-white text-gray-900 shadow-sm sm:bg-gray-900 sm:text-white"
+                : "text-gray-500 hover:bg-white/60 hover:text-gray-900"
             }`}
           >
             {tab.label}
@@ -241,7 +241,7 @@ export function ShowcaseTabs() {
             {techStack.map((tech) => (
               <motion.article
                 key={tech.name}
-                className="flex h-32 w-32 flex-col items-center justify-center rounded-[1.35rem] border border-white/12 bg-zinc-900/92 p-5 transition hover:border-white/35 hover:bg-zinc-800/95"
+                className="flex h-32 w-32 flex-col items-center justify-center rounded-[1.35rem] border border-gray-200 bg-white p-5 transition hover:border-gray-300 hover:shadow-md"
                 whileHover={{ y: -8, scale: 1.03 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
@@ -253,7 +253,7 @@ export function ShowcaseTabs() {
                   height={56}
                   className="h-14 w-14 object-contain"
                 />
-                <h3 className="mt-5 text-center text-xs font-semibold text-zinc-200">
+                <h3 className="mt-5 text-center text-xs font-semibold text-gray-700">
                   {tech.name}
                 </h3>
               </motion.article>
@@ -271,10 +271,10 @@ export function ShowcaseTabs() {
             {(active.items as CertificateItem[]).map((item) => (
               <motion.article
                 key={item.title}
-                className="rounded-2xl border border-white/12 bg-zinc-900/88 p-4 transition hover:border-white/35"
+                className="rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-md"
                 whileHover={{ y: -6 }}
               >
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-zinc-950">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-gray-100">
                   {item.image ? (
                     <Image
                       src={item.image}
@@ -284,17 +284,17 @@ export function ShowcaseTabs() {
                       className="object-cover"
                     />
                   ) : (
-                    <div className="flex h-full flex-col items-center justify-center border border-white/10 px-6 text-center">
-                      <span className="text-sm font-bold text-zinc-200">
+                    <div className="flex h-full flex-col items-center justify-center border border-dashed border-gray-300 px-6 text-center">
+                      <span className="text-sm font-bold text-gray-500">
                         Certificate
                       </span>
-                      <span className="mt-2 text-xs font-medium text-zinc-500">
+                      <span className="mt-2 text-xs font-medium text-gray-400">
                         Available on request
                       </span>
                     </div>
                   )}
                 </div>
-                <h3 className="px-3 py-5 text-center text-base font-bold leading-7 text-zinc-100">
+                <h3 className="px-3 py-5 text-center text-base font-bold leading-7 text-gray-900">
                   {item.title}
                 </h3>
               </motion.article>
@@ -330,11 +330,11 @@ function ProjectCard({
 }) {
   return (
     <motion.article
-      className="flex min-h-[19.5rem] flex-col rounded-2xl border border-white/12 bg-zinc-900/88 p-4 transition hover:border-white/35"
+      className="flex min-h-[19.5rem] flex-col rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-md"
       whileHover={{ y: -8 }}
       transition={{ type: "spring", stiffness: 250, damping: 22 }}
     >
-      <div className="relative aspect-[16/6.4] overflow-hidden rounded-xl bg-zinc-800">
+      <div className="relative aspect-[16/6.4] overflow-hidden rounded-xl bg-gray-100">
         {item.image ? (
           <Image
             src={item.image}
@@ -344,19 +344,19 @@ function ProjectCard({
             className="object-cover"
           />
         ) : (
-          <div className="h-full w-full bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.08),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]" />
+          <div className="h-full w-full bg-[radial-gradient(circle_at_18%_12%,rgba(0,0,0,0.03),transparent_18rem),linear-gradient(135deg,rgba(0,0,0,0.02),rgba(0,0,0,0.01))]" />
         )}
       </div>
 
-      <h3 className="mt-4 text-xl font-bold tracking-[-0.01em] text-white text-balance">
+      <h3 className="mt-4 text-xl font-bold tracking-[-0.01em] text-gray-900 text-balance">
         {item.title}
       </h3>
       {item.role && (
-        <p className="mt-2 text-xs font-semibold text-blue-400">
+        <p className="mt-2 text-xs font-semibold text-blue-600">
           {item.role}
         </p>
       )}
-      <p className="mt-3 line-clamp-3 text-sm font-medium leading-6 text-zinc-400">
+      <p className="mt-3 line-clamp-3 text-sm font-medium leading-6 text-gray-500">
         {item.description}
       </p>
 
@@ -365,7 +365,7 @@ function ProjectCard({
           {item.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-zinc-400"
+              className="rounded-full border border-gray-200 bg-gray-100 px-2.5 py-0.5 text-[11px] font-medium text-gray-500"
             >
               {tag}
             </span>
@@ -379,12 +379,12 @@ function ProjectCard({
             href={item.href}
             target="_blank"
             rel="noreferrer"
-            className="truncate text-sm font-semibold text-zinc-400 transition hover:text-white"
+            className="truncate text-sm font-semibold text-gray-500 transition hover:text-gray-900"
           >
             {item.meta}
           </a>
         ) : (
-          <span className="text-sm font-semibold text-zinc-600">
+          <span className="text-sm font-semibold text-gray-400">
             {item.meta || `Project 0${index + 1}`}
           </span>
         )}
@@ -392,7 +392,7 @@ function ProjectCard({
         <button
           type="button"
           onClick={() => onDetailsClick(item.title)}
-          className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+          className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-200"
         >
           Details
           <span aria-hidden="true">-&gt;</span>

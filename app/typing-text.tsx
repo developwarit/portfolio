@@ -3,36 +3,73 @@
 import { useState, useEffect } from "react";
 
 type TypingTextProps = {
-  text: string;
+  text?: string;
+  texts?: string[];
   className?: string;
   speed?: number;
   delay?: number;
+  deleteSpeed?: number;
+  pauseDuration?: number;
 };
 
-export function TypingText({ text, className = "", speed = 80, delay = 1000 }: TypingTextProps) {
+export function TypingText({ 
+  text, 
+  texts, 
+  className = "", 
+  speed = 80, 
+  delay = 1000,
+  deleteSpeed = 40,
+  pauseDuration = 2000
+}: TypingTextProps) {
   const [displayText, setDisplayText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const textList = texts || (text ? [text] : []);
 
   useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setIsTyping(true);
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          setDisplayText(text.slice(0, i + 1));
+    if (textList.length === 0) return;
+
+    let timeout: NodeJS.Timeout;
+    let i = 0;
+    let isDeleting = false;
+    let currentTextIndex = 0;
+
+    const type = () => {
+      const currentText = textList[currentTextIndex];
+
+      if (!isDeleting) {
+        // Typing
+        if (i <= currentText.length) {
+          setDisplayText(currentText.slice(0, i));
           i++;
+          timeout = setTimeout(type, speed);
         } else {
-          clearInterval(interval);
-          setIsTyping(false);
+          // Pause before deleting
+          isDeleting = true;
+          timeout = setTimeout(type, pauseDuration);
         }
-      }, speed);
+      } else {
+        // Deleting
+        if (i > 0) {
+          i--;
+          setDisplayText(currentText.slice(0, i));
+          timeout = setTimeout(type, deleteSpeed);
+        } else {
+          // Move to next text
+          isDeleting = false;
+          currentTextIndex = (currentTextIndex + 1) % textList.length;
+          setCurrentIndex(currentTextIndex);
+          timeout = setTimeout(type, 500);
+        }
+      }
+    };
 
-      return () => clearInterval(interval);
-    }, delay);
+    // Initial delay before starting
+    timeout = setTimeout(type, delay);
 
-    return () => clearTimeout(startTimeout);
-  }, [text, speed, delay]);
+    return () => clearTimeout(timeout);
+  }, [textList, speed, delay, deleteSpeed, pauseDuration]);
 
   // Cursor blink effect
   useEffect(() => {

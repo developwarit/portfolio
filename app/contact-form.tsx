@@ -55,7 +55,7 @@ export function ContactForm() {
           </div>
           <input
             type="text"
-            placeholder="Your Name"
+            placeholder="ชื่อของคุณ"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -72,7 +72,7 @@ export function ContactForm() {
           </div>
           <input
             type="email"
-            placeholder="Your Email"
+            placeholder="อีเมลของคุณ"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -88,7 +88,7 @@ export function ContactForm() {
             </svg>
           </div>
           <textarea
-            placeholder="Your Message"
+            placeholder="ข้อความของคุณ"
             rows={5}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -114,14 +114,14 @@ export function ContactForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              Sending...
+              กำลังส่ง...
             </>
           ) : (
             <>
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
               </svg>
-              Send Message
+              ส่งข้อความ
             </>
           )}
         </MagneticButton>
@@ -194,7 +194,7 @@ export function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                Message Sent!
+                ส่งข้อความสำเร็จ!
               </motion.h3>
               <motion.p
                 className="mt-2 text-sm text-zinc-400"
@@ -202,10 +202,10 @@ export function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                Thank you for reaching out. I&apos;ll get back to you soon.
+                ขอบคุณที่ติดต่อมา ผม&apos;ll get back to you soon.
               </motion.p>
 
-              {/* Close Button */}
+              {/* ปิด Button */}
               <motion.button
                 type="button"
                 onClick={() => setStatus("idle")}
@@ -274,7 +274,7 @@ export function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                Something went wrong
+                เกิดข้อผิดพลาด
               </motion.h3>
               <motion.p
                 className="mt-2 text-sm text-zinc-400"
@@ -282,7 +282,7 @@ export function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                Please try again or contact me directly via email.
+                กรุณาลองใหม่หรือติดต่อผมทางอีเมลโดยตรง
               </motion.p>
 
               {/* Close Button */}
@@ -296,7 +296,7 @@ export function ContactForm() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Try Again
+                ลองใหม่
               </motion.button>
             </motion.div>
           </motion.div>
