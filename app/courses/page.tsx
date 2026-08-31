@@ -1,17 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { TypingCodeCard } from "../typing-code-card";
 
 const courseTabs = [
   { id: "software", label: "Software 💻", color: "bg-blue-500" },
   { id: "data", label: "Data 📊", color: "bg-purple-500" },
-];
-
-const tasks = [
-  { done: false, text: "ลองแก้ไขข้อความ Hi 👋 ในไฟล์ด้านล่าง Console ดูบ้าง" },
-  { done: false, text: "เปลี่ยนสีจาก blue เป็นสี purple เพื่อเปลี่ยนสีพื้นหลังของวงกลม" },
 ];
 
 const courses = [
@@ -41,27 +37,84 @@ const courses = [
   },
 ];
 
-export default function CoursesPage() {
-  const [activeCourseTab, setActiveCourseTab] = useState("software");
-  const [activeEditorTab, setActiveEditorTab] = useState("exercise");
-  const [code, setCode] = useState(`.circle {
-  content: "Hi 👋";
-}`);
+function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [delay]);
 
   return (
-    <main className="min-h-screen bg-[#09090b] text-white">
+    <div ref={ref} className={`transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+      {children}
+    </div>
+  );
+}
+
+
+function FadeInWhenVisible({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function HoverCard({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function FloatingElement({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function CoursesPage() {
+  
+
+  return (
+    <main className="min-h-screen bg-[#faf9f7] text-gray-900">
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#09090b]/80 backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-[#faf9f7]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
           <Link
             href="/"
-            className="font-mono text-sm font-semibold tracking-[0.18em] text-zinc-300 transition hover:text-white"
+            className="font-mono text-sm font-semibold tracking-[0.18em] text-gray-900 transition hover:text-gray-700"
           >
             dev.warit
           </Link>
           <Link
             href="/"
-            className="flex items-center gap-2 text-sm text-zinc-400 transition hover:text-white"
+            className="flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-900"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -74,193 +127,191 @@ export default function CoursesPage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-sm font-semibold text-orange-400">
-                อัปสกิลด้วยเครื่องมือมากมาย
+          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+                        {/* Left Content */}
+            <div>
+              <p className="text-sm font-semibold text-orange-600">
+                🎓 สำหรับนักศึกษาวิทยาลัยเทคนิค กฟผ.แม่เมาะ
               </p>
-              <h1 className="mt-4 text-5xl font-black leading-tight text-white sm:text-6xl">
+              <h1 className="mt-4 text-5xl font-black leading-tight text-gray-900 sm:text-6xl">
                 AI + Data +
                 <br />
-                Software Dev 🚀
+                Software Dev <img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" />
               </h1>
-              <p className="mt-2 text-xl font-semibold text-orange-400">
-                เรียนรู้ ทำวันเรียน ยิงยาวได้ภายใน 5 เดือน
+              <p className="mt-2 text-xl font-semibold text-orange-600">
+                เรียนฟรี ลงมือทำจริง สร้างทักษะที่ใช้ได้จริง
               </p>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-zinc-400">
-                ไม่ต้องรอหลักสูตรโรงเรียน! สามารถนำ AI เข้ามาช่วย的同时 เรียน แล้วเปลี่ยนไอเดียให้พร้อม
-                สร้างรูปแบบการเปลี่ยนแปลง ✨
+              <p className="mt-4 max-w-md text-base leading-relaxed text-gray-600">
+                เรียนรู้ AI, Data และ Software Development ตั้งแต่พื้นฐาน
+                พร้อมทำโปรเจกต์จริงและสร้าง Portfolio ระหว่างเรียน
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  className="rounded-xl bg-orange-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-orange-600"
+                  className="rounded-xl bg-orange-500 px-6 py-3 text-sm font-bold text-gray-900 transition hover:bg-orange-600"
                 >
-                  🎓 Bootcamp & Course
+                  <img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" /> เริ่มเรียนฟรี
                 </button>
                 <button
                   type="button"
-                  className="rounded-xl border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+                  className="rounded-xl border border-gray-300 px-6 py-3 text-sm font-bold text-gray-700 transition hover:bg-gray-100"
                 >
-                  ดูคอร์สเรียนฟรี
+                  📚 ดูหลักสูตร
                 </button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Content - Code Editor */}
-            <motion.div
-              className="rounded-2xl border border-white/10 bg-zinc-900/90 overflow-hidden"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {/* Course Tabs */}
-              <div className="flex items-center gap-2 border-b border-white/10 bg-zinc-800/50 px-4 py-3">
-                <span className="text-sm text-zinc-400">เลือกเส้นทางการเรียนรู้ »</span>
-                {courseTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveCourseTab(tab.id)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      activeCourseTab === tab.id
-                        ? `${tab.color} text-white`
-                        : "bg-white/10 text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Editor Tabs */}
-              <div className="flex items-center gap-1 border-b border-white/10 px-4 py-2">
-                {["exercise", "preview", "console"].map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setActiveEditorTab(tab)}
-                    className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition ${
-                      activeEditorTab === tab
-                        ? "bg-blue-500/20 text-blue-400"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    {tab === "exercise" && "🎯 Exercise"}
-                    {tab === "preview" && "👁️ Preview"}
-                    {tab === "console" && ">_ Console"}
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Content */}
-              <div className="p-6">
-                {activeEditorTab === "exercise" && (
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-full bg-orange-500/20 px-3 py-1 text-xs font-semibold text-orange-400">
-                        🎯 Exercise
-                      </span>
-                    </div>
-                    <p className="text-sm text-zinc-300">
-                      แก้โค้ดด้านล่าง พร้อมกับดูผลลัพธ์ที่แท็บ Preview
-                    </p>
-                    <div className="mt-4 space-y-3">
-                      <p className="text-xs font-semibold text-zinc-500">
-                        Task <span className="text-green-400">สำเร็จแล้ว 0/2</span>
-                      </p>
-                      {tasks.map((task, i) => (
-                        <label
-                          key={i}
-                          className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-zinc-300"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={task.done}
-                            readOnly
-                            className="mt-0.5 h-4 w-4 rounded border-zinc-600"
-                          />
-                          {task.text}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {activeEditorTab === "preview" && (
-                  <div className="flex flex-col items-center justify-center py-8">
-                    <div className="flex h-32 w-32 items-center justify-center rounded-full bg-blue-500 text-2xl font-bold text-white shadow-lg shadow-blue-500/30">
-                      Hi 👋
-                    </div>
-                    <p className="mt-4 text-sm text-zinc-500">
-                      ผลลัพธ์จะเปลี่ยนเมื่อแก้ไขโค้ด
-                    </p>
-                  </div>
-                )}
-
-                {activeEditorTab === "console" && (
-                  <div>
-                    <p className="mb-3 text-xs font-semibold text-zinc-500">
-                      Console
-                    </p>
-                    <div className="rounded-lg bg-zinc-950 p-4 font-mono text-sm">
-                      <textarea
-                        value={code}
-                        onChange={(e) => setCode(e.target.value)}
-                        className="w-full bg-transparent text-green-400 outline-none resize-none"
-                        rows={6}
-                        spellCheck={false}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
+            <div className="flex justify-center lg:justify-end">
+              <TypingCodeCard />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Courses List */}
+      
+      
+      {/* AI Tools */}
+      <section className="py-12 bg-[#faf9f7]">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">
+            กลุ่มเครื่องมือ AI ที่ใช้บ่อยๆ
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/openai/74AA9C" alt="ChatGPT" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">ChatGPT</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/google/4285F4" alt="Gemini" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">Gemini</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/microsoft/737373" alt="Microsoft Copilot" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">Microsoft Copilot</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">Claude</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/perplexity/20B8CD" alt="Perplexity" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">Perplexity</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="https://cdn.simpleicons.org/cursor/000000" alt="Cursor" className="h-8 w-8" />
+              <span className="font-semibold text-gray-700">Cursor</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* What You'll Learn */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12">
-            <p className="text-sm font-semibold text-blue-400">Free Courses</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.02em] text-white">
-              คอร์สเรียนฟรี
+            <p className="text-sm font-semibold text-blue-600">What You'll Learn</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.02em] text-gray-900">
+              เรียนอะไรบ้าง?
             </h2>
-            <p className="mt-4 max-w-xl text-base text-zinc-400">
-              เริ่มต้นเรียนรู้การเขียนโค้ดได้ฟรี ไม่มีค่าใช้จ่าย
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-4xl">🤖</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">AI & AI Tools</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                เรียนรู้การใช้ AI ให้เป็นเครื่องมือช่วยเรียนและทำงาน
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-4xl">📊</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">Data & Analytics</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                พื้นฐานการจัดการข้อมูล วิเคราะห์ข้อมูล และสร้าง Dashboard
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-4xl">💻</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">Software Development</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                เรียนรู้การเขียนโปรแกรม พัฒนาเว็บไซต์ และสร้างระบบจริง
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-4xl"><img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" /></div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">Real Projects</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                นำความรู้มาสร้างโปรเจกต์ที่สามารถนำไปใส่ Portfolio ได้
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Motivational Section */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
+          <p className="text-sm font-semibold text-orange-600">Why This Program?</p>
+          <h2 className="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            ไม่ได้ทำมาเพื่อให้คุณจำโค้ด
+          </h2>
+          <p className="mt-4 text-2xl font-semibold text-orange-600">
+            เราอยากให้คุณ สร้างเป็น
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-lg text-gray-700">
+            <span>เรียนรู้</span>
+            <span className="text-orange-500">→</span>
+            <span>ทดลอง</span>
+            <span className="text-orange-500">→</span>
+            <span>ผิดพลาด</span>
+            <span className="text-orange-500">→</span>
+            <span>แก้ไข</span>
+            <span className="text-orange-500">→</span>
+            <span>สร้างโปรเจกต์</span>
+          </div>
+          <p className="mt-8 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            เพราะทักษะที่ดีที่สุด ไม่ได้เกิดจากการดูอย่างเดียว แต่เกิดจากการลงมือทำ
+          </p>
+        </div>
+      </section>
+
+{/* Courses List */}
+      <section className="py-16">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12">
+            <p className="text-sm font-semibold text-blue-600">FREE LEARNING</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.02em] text-gray-900">
+              คอร์สเรียนฟรีสำหรับนักศึกษา
+            </h2>
+            <p className="mt-4 max-w-xl text-base text-gray-600">
+              เรียนรู้ทักษะด้าน AI, Data และ Software Development
+              โดยไม่มีค่าใช้จ่าย พร้อมลงมือทำโปรเจกต์จริง
             </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((course, index) => (
-              <motion.div
-                key={course.title}
-                className="group rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition hover:border-white/20 hover:bg-white/8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
+              <div key={course.title}
+                className="group rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md"
+                >
                 {/* Course Image */}
                 <div className="relative h-48 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30" />
-                  <div className="absolute inset-0 bg-zinc-800/50" />
+                  <div className="absolute inset-0 bg-gray-100" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="h-16 w-16 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                    <svg className="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
                     </svg>
                   </div>
                   {/* Status Badge */}
                   <div className="absolute top-3 right-3">
-                    <span className="flex items-center gap-1.5 rounded-full bg-green-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                    <span className="flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
                       <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                       {course.status}
                     </span>
@@ -270,8 +321,8 @@ export default function CoursesPage() {
                 {/* Course Content */}
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-white">{course.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{course.description}</p>
-                  <div className="mt-4 flex items-center gap-3 text-xs text-zinc-500">
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">{course.description}</p>
+                  <div className="mt-4 flex items-center gap-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -279,14 +330,315 @@ export default function CoursesPage() {
                       {course.location}
                     </span>
                     <span>•</span>
-                    <span className="font-medium text-white">{course.price}</span>
+                    <span className="font-medium text-gray-900">{course.price}</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Why We Built This */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
+          <p className="text-sm font-semibold text-blue-600">Why We Built This</p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            ทำไมเราถึงสร้างเว็บไซต์นี้?
+          </h2>
+          <p className="mt-6 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            การเริ่มต้นเขียนโค้ดอาจดูยากในช่วงแรก ทั้งคำศัพท์ เทคโนโลยี เครื่องมือ และโปรเจกต์ที่ไม่รู้ว่าจะเริ่มจากตรงไหน
+          </p>
+          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            เว็บไซต์นี้จึงถูกสร้างขึ้นเพื่อเป็นพื้นที่เล็ก ๆ สำหรับรวบรวมความรู้ เครื่องมือ และประสบการณ์จากการเรียนรู้จริง
+            เพื่อให้ทุกคนสามารถเข้ามาเรียนรู้และนำไปทดลองสร้างโปรเจกต์ของตัวเองได้
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-lg font-semibold text-gray-700">
+            <span>เรียนรู้</span>
+            <span className="text-orange-500">→</span>
+            <span>ลงมือทำ</span>
+            <span className="text-orange-500">→</span>
+            <span>สร้างผลงาน</span>
+            <span className="text-orange-500">→</span>
+            <span>แบ่งปัน</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Who Is This For? */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-semibold text-orange-600">Who Is This For?</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              👨‍💻 เว็บนี้เหมาะกับใคร?
+            </h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-3xl">🌱</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">มือใหม่</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                ยังไม่เคยเขียนโค้ด และไม่รู้ว่าจะเริ่มจากตรงไหน
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-3xl">🎓</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">นักศึกษา</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                อยากฝึกทักษะเพิ่มเติมและมีโปรเจกต์ใส่ Portfolio
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-3xl">⚡</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">Vibe Coder</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                อยากใช้ AI ช่วยสร้าง ทดลอง และต่อยอดโปรเจกต์
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
+              <div className="text-3xl">🚀</div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900">คนที่อยากสร้างโปรเจกต์</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                มีไอเดียแต่ยังไม่รู้ว่าจะเปลี่ยนไอเดียให้เป็นโปรแกรมได้อย่างไร
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Roadmap */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-semibold text-blue-600">Learning Path</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              🗺️ Learning Roadmap
+            </h2>
+            <p className="mt-4 text-gray-600">จาก 0 → สร้างโปรเจกต์ได้</p>
+          </div>
+
+          <div className="relative">
+            {/* Roadmap Items */}
+            <div className="space-y-6">
+              {[
+                { step: "START", label: "เริ่มต้น", icon: "🎯" },
+                { step: "1", label: "พื้นฐาน Programming", icon: "💻" },
+                { step: "2", label: "Web Development / Data", icon: "🌐" },
+                { step: "3", label: "Frontend / Analytics", icon: "🎨" },
+                { step: "4", label: "Backend / Database", icon: "⚙️" },
+                { step: "5", label: "Build Project", icon: "🔨" },
+                { step: "6", label: "Portfolio", icon: "📁" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500 text-white font-bold">
+                    {item.icon}
+                  </div>
+                  <div className="flex-1 rounded-xl border border-gray-200 bg-white p-4">
+                    <p className="text-sm text-gray-500">Step {item.step}</p>
+                    <p className="font-semibold text-gray-900">{item.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vibe Coding */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-semibold text-purple-600">Vibe Coding</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              ⚡ Vibe Coding
+            </h2>
+            <p className="mt-4 text-gray-600">จากไอเดีย → สู่โปรเจกต์จริง ด้วย AI</p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { num: "01", title: "Vibe Coding คืออะไร?", desc: "ทำความเข้าใจแนวคิด และรู้ว่า AI ช่วยเราได้อย่างไร" },
+              { num: "02", title: "เริ่มสร้างเว็บไซต์ด้วย AI", desc: "สร้างเว็บไซต์แรกตั้งแต่ไอเดียจนเป็นหน้าเว็บจริง" },
+              { num: "03", title: "เขียน Prompt ให้ AI เข้าใจ", desc: "เรียนรู้วิธีสื่อสารกับ AI เพื่อให้ได้ผลลัพธ์ที่ต้องการ" },
+              { num: "04", title: "Debug ด้วย AI", desc: "เมื่อ Code มีปัญหา เรียนรู้วิธีหาและแก้ Bug อย่างเป็นระบบ" },
+              { num: "05", title: "เข้าใจ Code ที่ AI สร้าง", desc: "อ่าน วิเคราะห์ และปรับ Code ให้เป็น Code ที่เราเข้าใจ" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-[#faf9f7] p-5 transition hover:border-purple-300 hover:shadow-md group">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-purple-500 text-white text-xl font-bold">
+                  {item.num}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                  <p className="text-sm text-gray-600">{item.desc}</p>
+                </div>
+                <span className="text-sm font-semibold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                  เริ่มเรียน →
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* Real Projects */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-semibold text-green-600">Real Projects</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              🛠️ จากการเรียน → สู่การสร้าง
+            </h2>
+            <p className="mt-4 text-gray-600">เรียนรู้จากการลงมือทำ และเปลี่ยนความรู้ให้กลายเป็นผลงานจริง</p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "AI Chatbot", tech: "Next.js · AI · Supabase", desc: "โปรเจกต์ฝึกสร้าง Chatbot โดยใช้ AI เป็นตัวช่วย", status: "เสร็จแล้ว" },
+              { title: "Portfolio Website", tech: "React · Tailwind", desc: "เว็บไซต์ Portfolio สำหรับ展示ผลงาน", status: "เสร็จแล้ว" },
+              { title: "Dashboard App", tech: "Next.js · PostgreSQL", desc: "แดชบอร์ดสำหรับจัดการข้อมูล", status: "กำลังพัฒนา" },
+            ].map((project, i) => (
+              <div key={i} className="rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md">
+                <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-4xl">🚀</span>
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
+                  <div className="flex items-center gap-2 mt-1"><p className="text-xs text-purple-600 font-medium">{project.tech}</p><span className="flex items-center gap-1 text-xs text-green-600"><span className="h-1.5 w-1.5 rounded-full bg-green-500"></span>{project.status}</span></div>
+                  <p className="mt-2 text-sm text-gray-600">{project.desc}</p>
+                  <a href="#" className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700">
+                    ดูรายละเอียด →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <a href="#" className="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800">
+              ดูโปรเจกต์ทั้งหมด →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Submit Project CTA */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            มีโปรเจกต์ของตัวเองแล้ว?
+          </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            ไม่ว่าจะเป็นโปรเจกต์เล็กหรือใหญ่
+            มาแบ่งปันสิ่งที่คุณสร้าง และประสบการณ์ที่ได้เรียนรู้กับคนอื่น
+          </p>
+          <a href="#" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-orange-600">
+            ส่งโปรเจกต์ของฉัน →
+          </a>
+        </div>
+      </section>
+
+
+      {/* Resources */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-semibold text-blue-600">Resources</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              📚 แหล่งเรียนรู้
+            </h2>
+            <p className="mt-4 text-gray-600">เครื่องมือและแหล่งเรียนรู้ที่ช่วยให้การเริ่มต้นง่ายขึ้น</p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: "🤖", title: "AI Tools", desc: "เครื่องมือ AI สำหรับช่วยเรียนรู้และทำงาน" },
+              { icon: "💻", title: "Development", desc: "เครื่องมือสำหรับนักพัฒนา" },
+              { icon: "🎨", title: "Design", desc: "เครื่องมือออกแบบ UI/UX" },
+              { icon: "📊", title: "Data", desc: "เครื่องมือวิเคราะห์ข้อมูล" },
+              { icon: "🗄️", title: "Database", desc: "ระบบฐานข้อมูลสำหรับโปรเจกต์" },
+              { icon: "⚡", title: "Vibe Coding", desc: "เครื่องมือสำหรับการเขียนโค้ดด้วย AI" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-blue-300 hover:shadow-md">
+                <span className="text-2xl">{item.icon}</span>
+                <div>
+                  <p className="font-semibold text-gray-900">{item.title}</p>
+                  <p className="text-sm text-gray-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* Student Showcase */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              🚀 ตัวอย่างผลงานนักเรียน
+            </h2>
+            <p className="mt-4 text-gray-600">
+              ผลงานนักเรียนที่เริ่มจาก 0
+            </p>
+            <p className="mt-2 text-gray-600">
+              เห็นได้ชัดว่าพวกเขาสร้างเว็บของตัวเองได้ใน 5 เดือน พร้อมกันไปเป็น Portfolio เพื่อใช้สมัครงาน
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { name: "Major Cineplex", desc: "เว็บจองตั๋วภาพยนตร์" },
+              { name: "Neatly", desc: "เว็บไซต์จองที่พัก" },
+              { name: "Pet Sitter", desc: "บริการดูแลสัตว์เลี้ยง" },
+              { name: "Snake Game", desc: "เกมงูแบบ Online" },
+            ].map((project, i) => (
+              <HoverCard key={i}><div className="rounded-2xl border border-gray-200 bg-[#faf9f7] overflow-hidden transition hover:border-gray-300 hover:shadow-md">
+                <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-4xl">🎯</span>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-gray-900">{project.name}</h3>
+                  <p className="text-sm text-gray-600">{project.desc}</p>
+                </div>
+              </div></HoverCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Section */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8 lg:px-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.5fr] items-center">
+            <div>
+              <span className="text-6xl text-blue-500 font-serif">"</span>
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl leading-tight">
+                พื้นฐานที่แกะแยกออกจากความกลัว
+              </h2>
+              <p className="mt-4 text-2xl font-bold text-blue-600">
+                รู้รอด ทำเป็นงาน พร้อมเติบโตไปกับ AI
+              </p>
+              <span className="text-6xl text-blue-500 font-serif">"</span>
+            </div>
+            <div className="text-gray-600 leading-relaxed">
+              <p>
+                AI ถ้ามอง volunteerying การไปเที่ยงคืน เราก็ไม่ได้สร้างแค่ 'หน้าที่งาน' แต่สร้าง 'AI-first worker' ที่พร้อมรับมือกับทุกความท้าทาย เมื่อเรียนรู้ผู้การลงมือทำเป็นโปรเจกต์จริงกับเรา ได้ทั้งการคิดงานร่วมกับ AI เป็นพื้นฐาน เพื่อแก้ปัญหาได้เร็วขึ้น สร้างสรรค์คุณภาพได้ดีขึ้น
+              </p>
+              <p className="mt-4">
+                และเติบโตในสายงานที่ต้องการมากขึ้น
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }

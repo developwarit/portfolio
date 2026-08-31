@@ -55,7 +55,7 @@ export function TableOfContents() {
       <button
         type="button"
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-zinc-900/90 px-4 py-2.5 text-sm font-medium text-zinc-300 backdrop-blur-xl transition hover:border-white/30 hover:text-white lg:hidden"
+        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 rounded-full border border-gray-200 bg-white shadow-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-gray-300 hover:text-black lg:hidden"
       >
         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -70,9 +70,9 @@ export function TableOfContents() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-20 left-6 z-40 w-72 rounded-2xl border border-white/15 bg-zinc-900/95 p-4 backdrop-blur-xl shadow-2xl lg:hidden"
+            className="fixed bottom-20 left-6 z-40 w-72 rounded-2xl border border-gray-200 bg-white shadow-xl p-4 backdrop-blur-xl shadow-2xl lg:hidden"
           >
-            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-white">
+            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-gray-900">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
               </svg>
@@ -86,8 +86,8 @@ export function TableOfContents() {
                   onClick={() => scrollTo(s.id)}
                   className={`block w-full rounded-lg px-3 py-2 text-left text-sm transition ${
                     activeId === s.id
-                      ? "bg-blue-500/20 text-blue-400 font-medium"
-                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                      ? "bg-blue-100 text-blue-800 font-medium"
+                      : "text-gray-700 hover:text-black hover:bg-gray-50"
                   }`}
                 >
                   {s.label}
@@ -101,14 +101,14 @@ export function TableOfContents() {
       {/* Desktop TOC - Sticky Sidebar */}
       <div className="hidden xl:block">
         <div className="sticky top-32">
-          <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-5">
+          <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5">
             {/* Header */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="flex w-full items-center justify-between text-left"
             >
-              <h3 className="flex items-center gap-2 text-sm font-bold text-white">
+              <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
@@ -136,7 +136,7 @@ export function TableOfContents() {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="mt-4 space-y-1 border-t border-white/10 pt-4">
+                  <div className="mt-4 space-y-1 border-t border-gray-200 pt-4">
                     {sections.map((s) => (
                       <button
                         key={s.id}

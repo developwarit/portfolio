@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -41,19 +43,14 @@ export default function BlogPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#09090b] text-white">
+    <main className="min-h-screen bg-[#faf9f7] text-gray-900">
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#09090b]/80 backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-[#faf9f7]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
+          <Link href="/" className="transition hover:opacity-80"><img src="/logo.svg" alt="Warit Panyeam" className="h-8" /></Link>
           <Link
             href="/"
-            className="font-mono text-sm font-semibold tracking-[0.18em] text-zinc-300 transition hover:text-white"
-          >
-            dev.warit
-          </Link>
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm text-zinc-400 transition hover:text-white"
+            className="flex items-center gap-2 text-sm text-gray-900 transition hover:text-gray-900"
           >
             <svg
               className="h-4 w-4"
@@ -78,24 +75,24 @@ export default function BlogPage() {
           {/* Title */}
           <motion.div {...fadeIn}>
             <div className="flex items-end justify-between">
-              <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
+              <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-5xl">
                 บทความที่น่าสนใจ
               </h1>
-              <span className="text-sm text-zinc-500">
+              <span className="text-sm text-gray-900">
                 {filtered.length} บทความ
               </span>
             </div>
           </motion.div>
 
-          <div className="my-8 border-t border-white/10" />
+          <div className="my-8 border-t border-gray-200" />
 
           {/* Search */}
           <motion.div
             {...fadeIn}
             transition={{ delay: 0.1 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5"
+            className="rounded-2xl border border-gray-200 bg-white p-5"
           >
-            <p className="mb-3 text-sm font-semibold text-zinc-400">
+            <p className="mb-3 text-sm font-semibold text-gray-900">
               ค้นหาบทความ
             </p>
             <div className="flex flex-wrap items-center gap-3">
@@ -104,7 +101,7 @@ export default function BlogPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="ค้นหาหัวข้อบทความ"
-                className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition focus:border-white/30"
+                className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400"
               />
               <button
                 type="button"
@@ -118,7 +115,7 @@ export default function BlogPage() {
                   setSearch("");
                   setActiveTag("ทั้งหมด");
                 }}
-                className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-zinc-400 transition hover:text-white"
+                className="rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-900 transition hover:text-gray-900 hover:bg-gray-50"
               >
                 ล้างตัวกรอง
               </button>
@@ -139,7 +136,7 @@ export default function BlogPage() {
                 className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                   activeTag === tag
                     ? "bg-blue-500 text-white"
-                    : "border border-white/15 bg-white/5 text-zinc-400 hover:text-white"
+                    : "border border-gray-200 bg-gray-50 text-gray-900 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
                 {tag}
@@ -157,10 +154,10 @@ export default function BlogPage() {
               >
                 <Link
                   href={article.href}
-                  className="group grid gap-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition hover:border-white/20 hover:bg-white/[0.07] sm:grid-cols-[1.2fr_1fr]"
+                  className="group grid gap-6 overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 hover:shadow-md sm:grid-cols-[1.2fr_1fr]"
                 >
                   {/* Image */}
-                  <div className="relative h-64 overflow-hidden bg-zinc-900 sm:h-auto">
+                  <div className="relative h-64 overflow-hidden bg-gray-100 sm:h-auto">
                     <img
                       src={article.image}
                       alt={article.title}
@@ -176,7 +173,7 @@ export default function BlogPage() {
                         {article.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-zinc-400"
+                            className="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-900"
                           >
                             {tag}
                           </span>
@@ -184,27 +181,27 @@ export default function BlogPage() {
                       </div>
 
                       {/* Date */}
-                      <p className="mt-3 text-sm text-zinc-500">
+                      <p className="mt-3 text-sm text-gray-900">
                         {article.date}
                       </p>
 
                       {/* Title */}
-                      <h2 className="mt-3 text-2xl font-bold leading-tight text-white group-hover:text-blue-400 transition">
+                      <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 group-hover:text-blue-600 transition">
                         {article.title}
                       </h2>
 
                       {/* Description */}
-                      <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                      <p className="mt-3 text-sm leading-relaxed text-gray-900">
                         {article.description}
                       </p>
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-                      <span className="text-sm text-zinc-500">
+                    <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
+                      <span className="text-sm text-gray-900">
                         โดย {article.author}
                       </span>
-                      <span className="flex items-center gap-1 text-sm font-semibold text-blue-400 group-hover:gap-2 transition-all">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-blue-600 group-hover:gap-2 transition-all">
                         อ่านบทความ
                         <svg
                           className="h-4 w-4"
@@ -229,14 +226,14 @@ export default function BlogPage() {
             {/* Empty state */}
             {filtered.length === 0 && (
               <div className="py-16 text-center">
-                <p className="text-lg text-zinc-500">ไม่พบบทความที่ค้นหา</p>
+                <p className="text-lg text-gray-900">ไม่พบบทความที่ค้นหา</p>
                 <button
                   type="button"
                   onClick={() => {
                     setSearch("");
                     setActiveTag("ทั้งหมด");
                   }}
-                  className="mt-4 text-sm text-blue-400 hover:underline"
+                  className="mt-4 text-sm text-blue-600 hover:underline"
                 >
                   ล้างตัวกรอง
                 </button>

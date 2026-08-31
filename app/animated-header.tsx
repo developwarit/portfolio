@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { scrollToSection } from "./smooth-scroll";
 
 export function AnimatedHeader() {
   const [activeSection, setActiveSection] = useState("top");
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { label: "เกี่ยวกับ", section: "about" },
@@ -47,14 +49,8 @@ export function AnimatedHeader() {
 
   return (
     <header className={headerClass}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <button
-          type="button"
-          onClick={() => scrollToSection("top")}
-          className="text-lg font-bold text-gray-900 transition hover:text-blue-600"
-        >
-          dev.warit
-        </button>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+        <button type="button" onClick={() => scrollToSection("top")} className="transition hover:opacity-80"><img src="/logo.svg" alt="Warit Panyeam" className="h-8" /></button>
         <nav
           aria-label="Primary navigation"
           className="hidden items-center gap-8 md:flex"
@@ -85,8 +81,59 @@ export function AnimatedHeader() {
           <a href="/blog" className="hidden text-sm font-medium text-gray-500 transition hover:text-gray-900 md:block">
             Blog
           </a>
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 transition hover:bg-gray-100 md:hidden"
+            aria-label="Toggle menu"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="border-t border-gray-200 bg-white md:hidden"
+          >
+            <nav className="mx-auto max-w-6xl space-y-1 px-4 py-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.section}
+                  type="button"
+                  onClick={() => {
+                    scrollToSection(item.section!);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block w-full rounded-lg px-4 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="border-t border-gray-200 pt-3 mt-3">
+                <a href="/courses" className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
+                  Courses
+                </a>
+                <a href="/blog" className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
+                  Blog
+                </a>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

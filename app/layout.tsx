@@ -10,7 +10,10 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "Warit Panyeam | Portfolio",
+  title: "dev.warit",
+  icons: {
+    icon: "/favicon.svg",
+  },
   description:
     "Portfolio of Warit Panyeam, a fullstack developer building modern web applications from polished interfaces to reliable backend logic.",
   keywords: ["fullstack developer", "frontend developer", "React", "Next.js", "TypeScript", "portfolio"],

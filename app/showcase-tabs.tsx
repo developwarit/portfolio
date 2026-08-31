@@ -206,7 +206,7 @@ export function ShowcaseTabs() {
     <div className="mt-9">
       <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />
       <div
-        className="mx-auto grid max-w-3xl gap-2 rounded-[2rem] border border-gray-200 bg-gray-100 p-2 sm:grid-cols-3"
+        className="mx-auto grid max-w-md sm:max-w-3xl gap-1.5 sm:gap-2 rounded-2xl sm:rounded-[2rem] border border-gray-200 bg-gray-100 p-1.5 sm:p-2 grid-cols-3"
         role="tablist"
         aria-label="Portfolio showcase"
       >
@@ -303,7 +303,7 @@ export function ShowcaseTabs() {
         ) : (
           <motion.div
             key="projects"
-            className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -315,6 +315,17 @@ export function ShowcaseTabs() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* View More Button */}
+      <div className="mt-10 flex justify-center">
+        <div className="group inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-400 cursor-default"
+        >
+          ดูเพิ่มเติม
+          <svg className="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </div>
+      </div>
     </div>
   );
 }

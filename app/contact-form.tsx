@@ -48,7 +48,7 @@ export function ContactForm() {
       <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
         {/* Name Field */}
         <div className="relative">
-          <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">
+          <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
@@ -59,13 +59,13 @@ export function ContactForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full rounded-xl border border-white/10 bg-white/5 py-4 pl-12 pr-4 text-sm text-white placeholder-zinc-500 outline-none transition focus:border-white/25 focus:bg-white/8"
+            className="w-full rounded-xl border border-gray-200 bg-white py-4 pl-12 pr-4 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
           />
         </div>
 
         {/* Email Field */}
         <div className="relative">
-          <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">
+          <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
             </svg>
@@ -76,13 +76,13 @@ export function ContactForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-xl border border-white/10 bg-white/5 py-4 pl-12 pr-4 text-sm text-white placeholder-zinc-500 outline-none transition focus:border-white/25 focus:bg-white/8"
+            className="w-full rounded-xl border border-gray-200 bg-white py-4 pl-12 pr-4 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
           />
         </div>
 
         {/* Message Field */}
         <div className="relative">
-          <div className="pointer-events-none absolute left-4 top-4 text-zinc-500">
+          <div className="pointer-events-none absolute left-4 top-4 text-gray-400">
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
             </svg>
@@ -93,7 +93,7 @@ export function ContactForm() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             required
-            className="w-full resize-none rounded-xl border border-white/10 bg-white/5 py-4 pl-12 pr-4 text-sm text-white placeholder-zinc-500 outline-none transition focus:border-white/25 focus:bg-white/8"
+            className="w-full resize-none rounded-xl border border-gray-200 bg-white py-4 pl-12 pr-4 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
           />
         </div>
 
@@ -103,8 +103,8 @@ export function ContactForm() {
           disabled={status === "sending"}
           className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-sm font-semibold transition ${
             status === "sending"
-              ? "bg-zinc-600 text-white cursor-not-allowed"
-              : "bg-white text-zinc-950 hover:bg-blue-100"
+              ? "bg-gray-400 text-white cursor-not-allowed"
+              : "bg-gray-900 text-white hover:bg-gray-800"
           }`}
           strength={0.15}
         >
@@ -138,7 +138,7 @@ export function ContactForm() {
           >
             {/* Backdrop */}
             <motion.div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -146,7 +146,7 @@ export function ContactForm() {
 
             {/* Popup */}
             <motion.div
-              className="relative z-10 mx-4 w-full max-w-sm rounded-3xl border border-white/10 bg-zinc-900 p-8 text-center shadow-2xl"
+              className="relative z-10 mx-4 w-full max-w-sm rounded-3xl border border-white/10 bg-white p-8 text-center shadow-2xl"
               initial={{ scale: 0.5, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -189,7 +189,7 @@ export function ContactForm() {
 
               {/* Text */}
               <motion.h3
-                className="mt-6 text-xl font-bold text-white"
+                className="mt-6 text-xl font-bold text-gray-900"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -197,7 +197,7 @@ export function ContactForm() {
                 ส่งข้อความสำเร็จ!
               </motion.h3>
               <motion.p
-                className="mt-2 text-sm text-zinc-400"
+                className="mt-2 text-sm text-gray-500"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -234,7 +234,7 @@ export function ContactForm() {
           >
             {/* Backdrop */}
             <motion.div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -242,7 +242,7 @@ export function ContactForm() {
 
             {/* Popup */}
             <motion.div
-              className="relative z-10 mx-4 w-full max-w-sm rounded-3xl border border-white/10 bg-zinc-900 p-8 text-center shadow-2xl"
+              className="relative z-10 mx-4 w-full max-w-sm rounded-3xl border border-white/10 bg-white p-8 text-center shadow-2xl"
               initial={{ scale: 0.5, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -269,7 +269,7 @@ export function ContactForm() {
 
               {/* Text */}
               <motion.h3
-                className="mt-6 text-xl font-bold text-white"
+                className="mt-6 text-xl font-bold text-gray-900"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -277,7 +277,7 @@ export function ContactForm() {
                 เกิดข้อผิดพลาด
               </motion.h3>
               <motion.p
-                className="mt-2 text-sm text-zinc-400"
+                className="mt-2 text-sm text-gray-500"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
