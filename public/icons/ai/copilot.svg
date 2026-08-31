@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <defs>
+    <linearGradient id="copilot-grad1" x1="4" y1="4" x2="12" y2="12">
+      <stop stop-color="#7B83EB"/>
+      <stop offset="1" stop-color="#5B9BD5"/>
+    </linearGradient>
+    <linearGradient id="copilot-grad2" x1="12" y1="12" x2="20" y2="20">
+      <stop stop-color="#5B9BD5"/>
+      <stop offset="1" stop-color="#7BC67E"/>
+    </linearGradient>
+    <linearGradient id="copilot-grad3" x1="8" y1="16" x2="16" y2="8">
+      <stop stop-color="#FFB900"/>
+      <stop offset="0.5" stop-color="#F7630C"/>
+      <stop offset="1" stop-color="#E74856"/>
+    </linearGradient>
+    <linearGradient id="copilot-grad4" x1="4" y1="20" x2="20" y2="4">
+      <stop stop-color="#FFB900"/>
+      <stop offset="1" stop-color="#E74856"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 3C7 3 4 7 4 12C4 17 8 21 12 21C14 21 16 20 17 18L15 16C14 17 13 18 12 18C9 18 7 15 7 12C7 9 9 6 12 6C14 6 16 7 17 9L20 6C18 4 15 3 12 3Z" fill="url(#copilot-grad1)"/>
+  <path d="M12 6C14 6 16 7 17 9L20 6C18 4 15 3 12 3C9 3 6 5 5 8L8 11C9 8 10 7 12 6Z" fill="url(#copilot-grad2)"/>
+  <path d="M17 9L14 12C15 11 16 10 17 9Z" fill="url(#copilot-grad3)"/>
+  <path d="M5 8L8 11C7 9 7 8 8 7L5 8Z" fill="url(#copilot-grad4)"/>
+</svg>

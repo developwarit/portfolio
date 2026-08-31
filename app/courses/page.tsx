@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { TypingCodeCard } from "../typing-code-card";
+import { Bot, ChartNoAxesCombined, Laptop, Rocket, Sprout, GraduationCap, Zap, Target, Code, Palette, Database, Cpu } from "lucide-react";
 
 const courseTabs = [
   { id: "software", label: "Software 💻", color: "bg-blue-500" },
@@ -17,7 +18,7 @@ const courses = [
     location: "ออนไลน์",
     price: "เรียนฟรี",
     status: "เรียนซ้ำได้ตลอด",
-    image: "/courses/gen-ai-intro.jpg",
+    image: "/courses/gen-ai-intro.png",
   },
   {
     title: "Generative AI for HR",
@@ -25,7 +26,7 @@ const courses = [
     location: "ออนไลน์",
     price: "เรียนฟรี",
     status: "เรียนซ้ำได้ตลอด",
-    image: "/courses/gen-ai-hr.jpg",
+    image: "/courses/gen-ai-hr.png",
   },
   {
     title: "Vibe Coding for Non-Tech",
@@ -33,7 +34,7 @@ const courses = [
     location: "เรียนที่ On-site",
     price: "2 วัน",
     status: "รอกำลังเปิดรับสมัคร",
-    image: "/courses/vibe-coding.jpg",
+    image: "/courses/vibe-coding.png",
   },
 ];
 
@@ -178,31 +179,26 @@ export default function CoursesPage() {
           <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">
             กลุ่มเครื่องมือ AI ที่ใช้บ่อยๆ
           </h2>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/openai/74AA9C" alt="ChatGPT" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">ChatGPT</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/google/4285F4" alt="Gemini" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">Gemini</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/microsoft/737373" alt="Microsoft Copilot" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">Microsoft Copilot</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">Claude</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/perplexity/20B8CD" alt="Perplexity" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">Perplexity</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="https://cdn.simpleicons.org/cursor/000000" alt="Cursor" className="h-8 w-8" />
-              <span className="font-semibold text-gray-700">Cursor</span>
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+            {[
+              { name: "ChatGPT", icon: "/icons/ai/chatgpt.svg" },
+              { name: "Gemini", icon: "/icons/ai/gemini.svg" },
+              { name: "Microsoft Copilot", icon: "/icons/ai/copilot.svg" },
+              { name: "Claude", icon: "/icons/ai/claude.svg" },
+              { name: "Perplexity", icon: "/icons/ai/perplexity.svg" },
+              { name: "Cursor", icon: "/icons/ai/cursor.svg" },
+            ].map((tool) => (
+              <div key={tool.name} className="flex items-center gap-3">
+                <img
+                  src={tool.icon}
+                  alt={tool.name}
+                  className="h-8 w-8 object-contain"
+                />
+                <span className="text-sm font-semibold text-slate-800">
+                  {tool.name}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -220,32 +216,32 @@ export default function CoursesPage() {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-4xl">🤖</div>
-              <h3 className="mt-4 text-lg font-bold text-gray-900">AI & AI Tools</h3>
+              <Bot size={42} strokeWidth={1.8} className="mb-5 text-gray-700" />
+              <h3 className="text-lg font-bold text-gray-900">AI & AI Tools</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 เรียนรู้การใช้ AI ให้เป็นเครื่องมือช่วยเรียนและทำงาน
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-4xl">📊</div>
-              <h3 className="mt-4 text-lg font-bold text-gray-900">Data & Analytics</h3>
+              <ChartNoAxesCombined size={42} strokeWidth={1.8} className="mb-5 text-gray-700" />
+              <h3 className="text-lg font-bold text-gray-900">Data & Analytics</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 พื้นฐานการจัดการข้อมูล วิเคราะห์ข้อมูล และสร้าง Dashboard
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-4xl">💻</div>
-              <h3 className="mt-4 text-lg font-bold text-gray-900">Software Development</h3>
+              <Laptop size={42} strokeWidth={1.8} className="mb-5 text-gray-700" />
+              <h3 className="text-lg font-bold text-gray-900">Software Development</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 เรียนรู้การเขียนโปรแกรม พัฒนาเว็บไซต์ และสร้างระบบจริง
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-4xl"><img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" /></div>
-              <h3 className="mt-4 text-lg font-bold text-gray-900">Real Projects</h3>
+              <Rocket size={42} strokeWidth={1.8} className="mb-5 text-gray-700" />
+              <h3 className="text-lg font-bold text-gray-900">Real Projects</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 นำความรู้มาสร้างโปรเจกต์ที่สามารถนำไปใส่ Portfolio ได้
               </p>
@@ -297,18 +293,19 @@ export default function CoursesPage() {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((course, index) => (
+              
+
+              
               <div key={course.title}
                 className="group rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md"
                 >
                 {/* Course Image */}
                 <div className="relative h-48 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30" />
-                  <div className="absolute inset-0 bg-gray-100" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-                    </svg>
-                  </div>
+                  <img 
+                    src={course.image} 
+                    alt={course.title}
+                    className="h-full w-full object-cover"
+                  />
                   {/* Status Badge */}
                   <div className="absolute top-3 right-3">
                     <span className="flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
@@ -320,7 +317,7 @@ export default function CoursesPage() {
 
                 {/* Course Content */}
                 <div className="p-5">
-                  <h3 className="text-lg font-bold text-white">{course.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900">{course.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-gray-600">{course.description}</p>
                   <div className="mt-4 flex items-center gap-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
@@ -371,13 +368,13 @@ export default function CoursesPage() {
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-orange-600">Who Is This For?</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              👨‍💻 เว็บนี้เหมาะกับใคร?
+              เว็บนี้เหมาะกับใคร?
             </h2>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-3xl">🌱</div>
+              <Sprout size={36} strokeWidth={1.8} className="text-green-600" />
               <h3 className="mt-4 text-lg font-bold text-gray-900">มือใหม่</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 ยังไม่เคยเขียนโค้ด และไม่รู้ว่าจะเริ่มจากตรงไหน
@@ -385,7 +382,7 @@ export default function CoursesPage() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-3xl">🎓</div>
+              <GraduationCap size={36} strokeWidth={1.8} className="text-blue-600" />
               <h3 className="mt-4 text-lg font-bold text-gray-900">นักศึกษา</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 อยากฝึกทักษะเพิ่มเติมและมีโปรเจกต์ใส่ Portfolio
@@ -393,7 +390,7 @@ export default function CoursesPage() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-3xl">⚡</div>
+              <Zap size={36} strokeWidth={1.8} className="text-yellow-500" />
               <h3 className="mt-4 text-lg font-bold text-gray-900">Vibe Coder</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 อยากใช้ AI ช่วยสร้าง ทดลอง และต่อยอดโปรเจกต์
@@ -401,7 +398,7 @@ export default function CoursesPage() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-[#faf9f7] p-6 transition hover:border-gray-300 hover:shadow-md">
-              <div className="text-3xl">🚀</div>
+              <Target size={36} strokeWidth={1.8} className="text-orange-500" />
               <h3 className="mt-4 text-lg font-bold text-gray-900">คนที่อยากสร้างโปรเจกต์</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 มีไอเดียแต่ยังไม่รู้ว่าจะเปลี่ยนไอเดียให้เป็นโปรแกรมได้อย่างไร
@@ -417,7 +414,7 @@ export default function CoursesPage() {
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-blue-600">Learning Path</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              🗺️ Learning Roadmap
+               Learning Roadmap
             </h2>
             <p className="mt-4 text-gray-600">จาก 0 → สร้างโปรเจกต์ได้</p>
           </div>
@@ -462,11 +459,11 @@ export default function CoursesPage() {
 
           <div className="space-y-4">
             {[
-              { num: "01", title: "Vibe Coding คืออะไร?", desc: "ทำความเข้าใจแนวคิด และรู้ว่า AI ช่วยเราได้อย่างไร" },
-              { num: "02", title: "เริ่มสร้างเว็บไซต์ด้วย AI", desc: "สร้างเว็บไซต์แรกตั้งแต่ไอเดียจนเป็นหน้าเว็บจริง" },
-              { num: "03", title: "เขียน Prompt ให้ AI เข้าใจ", desc: "เรียนรู้วิธีสื่อสารกับ AI เพื่อให้ได้ผลลัพธ์ที่ต้องการ" },
-              { num: "04", title: "Debug ด้วย AI", desc: "เมื่อ Code มีปัญหา เรียนรู้วิธีหาและแก้ Bug อย่างเป็นระบบ" },
-              { num: "05", title: "เข้าใจ Code ที่ AI สร้าง", desc: "อ่าน วิเคราะห์ และปรับ Code ให้เป็น Code ที่เราเข้าใจ" },
+              { num: "01", title: "Vibe Coding คืออะไร?", icon: "💡", desc: "ทำความเข้าใจแนวคิด และรู้ว่า AI ช่วยเราได้อย่างไร" },
+              { num: "02", title: "เริ่มสร้างเว็บไซต์ด้วย AI", icon: "🌐", desc: "สร้างเว็บไซต์แรกตั้งแต่ไอเดียจนเป็นหน้าเว็บจริง" },
+              { num: "03", title: "เขียน Prompt ให้ AI เข้าใจ", icon: "✍️", desc: "เรียนรู้วิธีสื่อสารกับ AI เพื่อให้ได้ผลลัพธ์ที่ต้องการ" },
+              { num: "04", title: "Debug ด้วย AI", icon: "🐛", desc: "เมื่อ Code มีปัญหา เรียนรู้วิธีหาและแก้ Bug อย่างเป็นระบบ" },
+              { num: "05", title: "เข้าใจ Code ที่ AI สร้าง", icon: "📖", desc: "อ่าน วิเคราะห์ และปรับ Code ให้เป็น Code ที่เราเข้าใจ" },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-[#faf9f7] p-5 transition hover:border-purple-300 hover:shadow-md group">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-purple-500 text-white text-xl font-bold">
@@ -500,12 +497,12 @@ export default function CoursesPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { title: "AI Chatbot", tech: "Next.js · AI · Supabase", desc: "โปรเจกต์ฝึกสร้าง Chatbot โดยใช้ AI เป็นตัวช่วย", status: "เสร็จแล้ว" },
-              { title: "Portfolio Website", tech: "React · Tailwind", desc: "เว็บไซต์ Portfolio สำหรับ展示ผลงาน", status: "เสร็จแล้ว" },
+              { title: "Portfolio Website", tech: "React · Tailwind", desc: "เว็บไซต์ Portfolio สำหรับแสดงผลงาน", status: "เสร็จแล้ว" },
               { title: "Dashboard App", tech: "Next.js · PostgreSQL", desc: "แดชบอร์ดสำหรับจัดการข้อมูล", status: "กำลังพัฒนา" },
             ].map((project, i) => (
               <div key={i} className="rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md">
                 <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <span className="text-4xl">🚀</span>
+                  <Rocket size={48} strokeWidth={1.5} className="text-gray-400" />
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
@@ -557,21 +554,24 @@ export default function CoursesPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: "🤖", title: "AI Tools", desc: "เครื่องมือ AI สำหรับช่วยเรียนรู้และทำงาน" },
-              { icon: "💻", title: "Development", desc: "เครื่องมือสำหรับนักพัฒนา" },
-              { icon: "🎨", title: "Design", desc: "เครื่องมือออกแบบ UI/UX" },
-              { icon: "📊", title: "Data", desc: "เครื่องมือวิเคราะห์ข้อมูล" },
-              { icon: "🗄️", title: "Database", desc: "ระบบฐานข้อมูลสำหรับโปรเจกต์" },
-              { icon: "⚡", title: "Vibe Coding", desc: "เครื่องมือสำหรับการเขียนโค้ดด้วย AI" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-blue-300 hover:shadow-md">
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <p className="font-semibold text-gray-900">{item.title}</p>
-                  <p className="text-sm text-gray-600">{item.desc}</p>
+              { icon: Bot, title: "AI Tools", desc: "เครื่องมือ AI สำหรับช่วยเรียนรู้และทำงาน" },
+              { icon: Code, title: "Development", desc: "เครื่องมือสำหรับนักพัฒนา" },
+              { icon: Palette, title: "Design", desc: "เครื่องมือออกแบบ UI/UX" },
+              { icon: ChartNoAxesCombined, title: "Data", desc: "เครื่องมือวิเคราะห์ข้อมูล" },
+              { icon: Database, title: "Database", desc: "ระบบฐานข้อมูลสำหรับโปรเจกต์" },
+              { icon: Cpu, title: "Vibe Coding", desc: "เครื่องมือสำหรับการเขียนโค้ดด้วย AI" },
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-blue-300 hover:shadow-md">
+                  <Icon size={28} strokeWidth={1.8} className="text-gray-700" />
+                  <div>
+                    <p className="font-semibold text-gray-900">{item.title}</p>
+                    <p className="text-sm text-gray-600">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -601,7 +601,7 @@ export default function CoursesPage() {
             ].map((project, i) => (
               <HoverCard key={i}><div className="rounded-2xl border border-gray-200 bg-[#faf9f7] overflow-hidden transition hover:border-gray-300 hover:shadow-md">
                 <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <span className="text-4xl">🎯</span>
+                  <Target size={48} strokeWidth={1.5} className="text-gray-400" />
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-gray-900">{project.name}</h3>
@@ -629,13 +629,58 @@ export default function CoursesPage() {
             </div>
             <div className="text-gray-600 leading-relaxed">
               <p>
-                AI ถ้ามอง volunteerying การไปเที่ยงคืน เราก็ไม่ได้สร้างแค่ 'หน้าที่งาน' แต่สร้าง 'AI-first worker' ที่พร้อมรับมือกับทุกความท้าทาย เมื่อเรียนรู้ผู้การลงมือทำเป็นโปรเจกต์จริงกับเรา ได้ทั้งการคิดงานร่วมกับ AI เป็นพื้นฐาน เพื่อแก้ปัญหาได้เร็วขึ้น สร้างสรรค์คุณภาพได้ดีขึ้น
+                เราไม่ได้สอนให้จำโค้ด แต่สอนให้คิดเป็น ลงมือทำเป็น และสร้างโปรเจกต์จริงได้
+                ไม่ว่าจะเป็น AI, Data หรือ Software Development — ทุกคนเริ่มจากศูนย์ได้
               </p>
               <p className="mt-4">
-                และเติบโตในสายงานที่ต้องการมากขึ้น
+                เพราะเราเชื่อว่าทุกคนมีศักยภาพในการเรียนรู้ และสร้างสิ่งใหม่ๆ ได้เสมอ
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      {/* Share Knowledge */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
+          <p className="text-sm font-semibold text-orange-600">Community</p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            🤝 อยากช่วยแบ่งปัน?
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            เว็บไซต์นี้เกิดจากการเรียนรู้และประสบการณ์จริง
+            ถ้าคุณมีบทเรียน เทคนิค หรือโปรเจกต์ที่อยากแบ่งปัน
+            สามารถส่งมาให้คนอื่นเรียนรู้ต่อได้
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a href="#" className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600">
+              ✍️ แชร์ความรู้
+            </a>
+            <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100">
+              🚀 ส่งโปรเจกต์
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Start From Zero */}
+      <section className="py-16 bg-[#faf9f7]">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            🚀 เริ่มจากศูนย์ก็สร้างได้
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            ไม่จำเป็นต้องรู้ทุกอย่างก่อนเริ่ม
+            เรียนรู้ทีละขั้น ลงมือทำจริง และใช้ AI เป็นเครื่องมือช่วยคิด
+          </p>
+          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
+            เพราะโปรเจกต์แรกไม่จำเป็นต้องสมบูรณ์แบบ
+            แค่เริ่มสร้าง ก็ถือว่าเริ่มเรียนรู้แล้ว
+          </p>
+          <a href="#" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-orange-600">
+            🚀 เริ่มเรียนฟรี
+          </a>
         </div>
       </section>
 
