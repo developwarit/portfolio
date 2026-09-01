@@ -1,0 +1,86 @@
+// Auth.js Configuration สำหรับระบบ LMS
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+
+// การตั้งค่า Auth.js
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    // Google OAuth
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    // Email + Password
+    Credentials({
+      name: "credentials",
+      credentials: {
+        email: { label: "อีเมล", type: "email" },
+        password: { label: "รหัสผ่าน", type: "password" },
+      },
+      async authorize(credentials) {
+        // Validate input
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        // TODO: ตรวจสอบกับ database
+        // const user = await prisma.user.findUnique({
+        //   where: { email: credentials.email as string }
+        // });
+        //
+        // if (!user || !user.hashedPassword) {
+        //   return null; // ไม่พบผู้ใช้ หรือไม่มีรหัสผ่าน (Google-only user)
+        // }
+        //
+        // const isValid = await bcrypt.compare(
+        //   credentials.password as string,
+        //   user.hashedPassword
+        // );
+        //
+        // if (!isValid) {
+        //   return null;
+        // }
+
+        // Mock user สำหรับ demo
+        return {
+          id: "1",
+          name: "Demo User",
+          email: credentials.email as string,
+          role: "STUDENT",
+        };
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+  callbacks: {
+    // JWT callback - เก็บข้อมูลเพิ่มเติมใน token
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role;
+      }
+      return token;
+    },
+    // Session callback - ส่งข้อมูลไป client
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as any).role = token.role;
+      }
+      return session;
+    },
+    // signIn callback - ตรวจสอบก่อนเข้าระบบ
+    async signIn({ user, account }) {
+      // TODO: Account Linking
+      // ถ้าอีเมลเดียวกันสมัครไว้แล้ว มาล็อกอินด้วย Google
+      // ให้ผูกเข้าบัญชีเดิม ไม่สร้างบัญชีซ้ำ
+
+      return true;
+    },
+  },
+});

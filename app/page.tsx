@@ -36,17 +36,17 @@ const aboutStats = [
 
 const stackGroups = [
   {
-    title: "ฟรอนต์เอนด์",
+    title: "Frontend",
     description: "สร้างอินเทอร์เฟซที่ตอบสนองและทันสมัย",
     items: [
       { name: "React", project: "W10 Dashboards" },
-      { name: "Next.js", project: "Portfolio Website" },
+      { name: "Next.js", project: " Website" },
       { name: "TypeScript", project: "W10 Dashboards, OT Plus" },
       { name: "Tailwind CSS", project: "All projects" },
     ],
   },
   {
-    title: "แบ็คเอนด์",
+    title: "Backend",
     description: "พัฒนา API และแอปพลิเคชันฝั่งเซิร์ฟเวอร์",
     items: [
       { name: "Next.js API Routes", project: "W10 Dashboards" },
@@ -56,7 +56,7 @@ const stackGroups = [
     ],
   },
   {
-    title: "ฐานข้อมูล",
+    title: "Database",
     description: "ออกแบบและจัดการระบบข้อมูลที่เชื่อถือได้",
     items: [
       { name: "SQL", project: "All projects" },
@@ -66,7 +66,7 @@ const stackGroups = [
     ],
   },
   {
-    title: "เครื่องมือ",
+    title: "Tools",
     description: "เครื่องมือที่ใช้ในการสร้างและส่งมอบโปรเจกต์",
     items: [
       { name: "Git", project: "All projects" },
@@ -234,7 +234,7 @@ export default function Home() {
       <FadeIn delay={300}><MotionSection id="stack" className="border-t border-gray-200">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-blue-600">ความสามารถ</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-blue-600">Skills</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">ชุดทักษะ Fullstack สำหรับเว็บแอปพลิเคชันสมัยใหม่</h2>
           </div>
           <div className="grid gap-4 sm:gap-5 grid-cols-2 lg:grid-cols-4">
@@ -264,7 +264,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-xl border border-gray-200 bg-[#faf9f7] p-7 sm:p-9">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">ติดต่อฉัน</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Contact me</h2>
               <p className="mt-3 max-w-md text-sm leading-6 text-gray-500">ติดต่อมาได้เลยหากต้องการร่วมงาน แลกเปลี่ยนความคิด หรือแค่ทักทาย</p>
               <ContactForm />
             </div>

@@ -1,0 +1,68 @@
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import { z } from "zod";
+import { prisma } from "@/lib/prisma";
+
+// Zod schema สำหรับ validate ข้อมูล
+const registerSchema = z.object({
+  name: z.string().min(1, "กรุณากรอกชื่อ"),
+  email: z.string().email("รูปแบบอีเมลไม่ถูกต้อง"),
+  password: z
+    .string()
+    .min(8, "รหัสผ่านต้องมีอย่างน้อย 8 ตัว")
+    .regex(/[A-Z]/, "ต้องมีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว")
+    .regex(/[a-z]/, "ต้องมีตัวพิมพ์เล็กอย่างน้อย 1 ตัว")
+    .regex(/[0-9]/, "ต้องมีตัวเลขอย่างน้อย 1 ตัว"),
+});
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const result = registerSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: result.error.issues[0].message },
+        { status: 400 }
+      );
+    }
+
+    const { name, email, password } = result.data;
+
+    // ตรวจสอบว่าอีเมลซ้ำหรือไม่
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "อีเมลนี้ถูกใช้แล้ว" },
+        { status: 400 }
+      );
+    }
+
+    // Hash รหัสผ่าน
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // สร้างผู้ใช้ใหม่
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        hashedPassword,
+        emailVerified: new Date(),
+      },
+    });
+
+    return NextResponse.json(
+      { message: "สมัครสมาชิกสำเร็จ", userId: user.id },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Register error:", error);
+    return NextResponse.json(
+      { error: "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง" },
+      { status: 500 }
+    );
+  }
+}

@@ -14,6 +14,7 @@ const courseTabs = [
 const courses = [
   {
     title: "Intro to Generative AI",
+    slug: "intro-to-generative-ai",
     description: "เรียนรู้การใช้งาน Generative AI แบบง่ายๆ ผ่าน Hands-on Workshop ให้ AI กล่าวทักทายได้ ไม่ต้องมีประสบการณ์ก่อน",
     location: "ออนไลน์",
     price: "เรียนฟรี",
@@ -22,6 +23,7 @@ const courses = [
   },
   {
     title: "Generative AI for HR",
+    slug: "generative-ai-for-hr",
     description: "แปลง AI ให้กลายเป็นผู้ช่วยอัจฉริยะของแผนก HR ให้ AI ช่วยคัดกรองผู้สมัคร จดบันทึก สร้างประกาศรับสมัคร",
     location: "ออนไลน์",
     price: "เรียนฟรี",
@@ -30,6 +32,7 @@ const courses = [
   },
   {
     title: "Vibe Coding for Non-Tech",
+    slug: "vibe-coding-for-non-tech",
     description: "เรียนรู้โค้ดเบื้องต้นและสร้างโปรเจกต์ของตัวเองครั้งแรกไปพร้อมๆ กัน โดยไม่ต้องมีพื้นฐาน",
     location: "เรียนที่ On-site",
     price: "2 วัน",
@@ -100,7 +103,28 @@ function FloatingElement({ children, delay = 0 }: { children: React.ReactNode; d
 }
 
 export default function CoursesPage() {
-  
+  const [user, setUser] = useState<{id:string;name:string|null;email:string;image:string|null} | null>(null);
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me").then(r => r.json()).then(d => setUser(d.user)).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setShowMenu(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    window.location.href = "/courses";
+  };
+
+  const initials = user?.name ? user.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) : "";
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-gray-900">
@@ -113,15 +137,49 @@ export default function CoursesPage() {
           >
             dev.warit
           </Link>
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-900"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            กลับหน้าหลัก
-          </Link>
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={() => setShowMenu(!showMenu)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2563EB] text-sm font-bold text-white transition hover:bg-[#2563EB]/80"
+                >
+                  {user.image ? (
+                    <img src={user.image} alt="" className="h-9 w-9 rounded-full object-cover" />
+                  ) : (
+                    initials
+                  )}
+                </button>
+                {showMenu && (
+                  <div className="absolute right-0 mt-2 w-56 rounded-xl border border-gray-200 bg-white py-2 shadow-lg">
+                    <div className="border-b border-gray-100 px-4 py-3">
+                      <p className="text-sm font-semibold text-gray-900">{user.name || "ผู้ใช้"}</p>
+                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    </div>
+                    <Link href="/profile" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                      โปรไฟล์
+                    </Link>
+                    <button onClick={handleLogout} className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
+                      ออกจากระบบ
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+                เข้าสู่ระบบ
+              </Link>
+            )}
+            
+          </div>
         </div>
       </header>
 
@@ -296,8 +354,9 @@ export default function CoursesPage() {
               
 
               
-              <div key={course.title}
-                className="group rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md"
+              <Link key={course.title}
+                href={`/courses/${course.slug}`}
+                className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md"
                 >
                 {/* Course Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -330,7 +389,7 @@ export default function CoursesPage() {
                     <span className="font-medium text-gray-900">{course.price}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

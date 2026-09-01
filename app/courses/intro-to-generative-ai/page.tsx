@@ -1,120 +1,127 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const modules = [
+  { title: "ทำคความรู้จักกับ Generative AI", progress: "4/7", percent: 57, lessons: [
+    { title: "ทำไมเราถึงใช้ AI ช่วยทำงาน", status: "done" },
+    { title: "Generative AI คืออะไร", status: "done" },
+    { title: "คุณสมบัติเด่นของ Generative AI", status: "current" },
+    { title: "ตัวอย่างเครื่องมือ Generative AI", status: "locked" },
+    { title: "การใช้งาน Generative AI", status: "done" },
+    { title: "ขั้นตอนการทำงานของ Generative AI", status: "locked" },
+    { title: "เริ่มต้นใช้งาน Chat GPT", status: "done" },
+  ]},
+  { title: "เทคนิคการเขียน Prompt", progress: "1/6", percent: 17, lessons: [
+    { title: "Prompt คืออะไร", status: "done" },
+    { title: "โครงสร้างของ Prompt", status: "locked" },
+    { title: "เทคนิคการเขียน Prompt", status: "locked" },
+    { title: "ตัวอย่าง Prompt สำหรับงานต่างๆ", status: "locked" },
+    { title: "ฝึกเขียน Prompt", status: "locked" },
+    { title: "สรุป Prompt Engineering", status: "locked" },
+  ]},
+  { title: "ข้อคิดประกันการใช้งาน AI", progress: "0/2", percent: 0, lessons: [
+    { title: "ข้อจำกัดของ AI", status: "locked" },
+    { title: "จริยธรรมในการใช้ AI", status: "locked" },
+  ]},
+];
+
+const totalLessons = modules.reduce((s, m) => s + m.lessons.length, 0);
+const doneLessons = modules.reduce((s, m) => s + m.lessons.filter(l => l.status === "done").length, 0);
+const overallPercent = Math.round((doneLessons / totalLessons) * 100);
+
+function MiniRing({ percent, size = 40 }: { percent: number; size?: number }) {
+  const r = (size - 6) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (circ * percent) / 100;
+  return (
+    <svg width={size} height={size} className="-rotate-90 shrink-0">
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#e5e7eb" strokeWidth={4} />
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#6366f1" strokeWidth={4} strokeDasharray={circ} strokeDashoffset={offset} strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function CourseDetailPage() {
+  const [expandedModule, setExpandedModule] = useState<number | null>(0);
+
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-gray-900">
-      {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-[#faf9f7]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
-          <Link
-            href="/courses"
-            className="font-mono text-sm font-semibold tracking-[0.18em] text-gray-900 transition hover:text-gray-700"
-          >
-            dev.warit
-          </Link>
-          <Link
-            href="/courses"
-            className="flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-900"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            กลับหน้าคอร์ส
-          </Link>
+    <main className="min-h-screen bg-[#f0f4ff] text-gray-900">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
+        <div className="mx-auto flex items-center justify-between px-5 py-3">
+          <Link href="/courses" className="font-bold text-lg text-orange-500">dev.warit</Link>
+          <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-white px-1 py-1">
+            <span className="rounded-full px-4 py-1.5 text-sm font-medium text-gray-500">แชร์ Course</span>
+            <span className="rounded-full bg-blue-600 px-4 py-1.5 text-sm font-medium text-white">เนื้อหาทั้งหมด</span>
+          </div>
+          <div className="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-bold text-white">W</div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16">
-        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-5xl font-black text-gray-900 sm:text-6xl">
-              คอร์ส
-            </h1>
-            <h2 className="mt-2 text-4xl font-bold text-blue-600 sm:text-5xl">
-              Intro to Generative AI
-            </h2>
-            
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
-              <span className="flex items-center gap-2 rounded-full bg-green-500 px-4 py-2 text-white font-semibold">
-                <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-                คอร์สเรียนฟรี!
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                ระยะเวลาเรียน: 2 ชั่วโมง
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-                </svg>
-                หมวดหมู่: Generative AI
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <div className="pt-16 pb-20">
+        <div className="mx-auto max-w-5xl px-5 py-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <h1 className="text-3xl font-bold text-gray-900 mb-8">เนื้อหาทั้งหมดของคอร์สนี้</h1>
 
-      {/* Course Content */}
-      <section className="py-12">
-        <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
-          >
-            {/* Intro Message */}
-            <div className="rounded-xl bg-blue-50 p-6 mb-8">
-              <p className="text-lg text-gray-800 leading-relaxed">
-                เคยลองใช้ ChatGPT แล้วรู้สึกไหมว่า "ถึงมีความรู้แต่ไม่เข้าใจงานอย่างลึกซึ้ง" 
-                หรือเรียนรู้สิ่งต่างๆ มาเรื่อยๆ แต่ไม่เก่งสักที แล้วเราจะเปลี่ยนเป็นมือโปรได้ยังไง? 🤔
-              </p>
+            <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 mb-8 flex items-center justify-between">
+              <div className="text-white">
+                <p className="text-sm font-medium opacity-80">คอร์ส Free course</p>
+                <h2 className="text-3xl font-bold mt-1">Intro to Generative AI</h2>
+              </div>
+              <div className="text-white text-5xl font-bold">{overallPercent}%</div>
             </div>
 
-            <div className="space-y-6 text-gray-700 leading-relaxed">
-              <p>
-                ไม่ต้องกังวล! คอร์สนี้มีมากกว่าที่คุณคิดอย่างแน่นอน ✨
-              </p>
-              <p>
-                เราจะพาคุณเรียนรู้ Prompt Engineering หรือการสร้างสรรค์ AI 
-                ตั้งแต่พื้นฐานที่เข้าใจง่าย ไปจนถึงการประยุกต์ใช้ในสายงานต่างๆ 
-                เช่น Marketing, HR, และ Sales 💡💼
-              </p>
-              <p>
-                คุณจะได้เรียนรู้ AI ไปพร้อมๆ กับนักศึกษาคนอื่น และทุกครั้งที่ Prompt ไม่เป็น 
-                ไม่ต้องห่วง เพราะ chúng tôi sẽช่วยให้คุณมีประสิทธิภาพ เพิ่มผลผลิต และทำให้ทีมงานประสบความสำเร็จ!
-              </p>
-              <p>
-                ไม่ว่าพื้นฐานที่คุณเรียนมาจะเป็นอะไร คุณจะไม่เหมือน AI เดิมอีกต่อไป 😎
-              </p>
+            <div className="space-y-4">
+              {modules.map((module, mi) => {
+                const isExpanded = expandedModule === mi;
+                return (
+                  <div key={mi} className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+                    <button onClick={() => setExpandedModule(isExpanded ? null : mi)} className="flex w-full items-center gap-4 p-5 text-left hover:bg-gray-50 transition">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-500 text-white font-bold text-sm">AI</div>
+                      <div className="flex-1"><h3 className="font-bold text-indigo-600 text-lg">{module.title}</h3></div>
+                      <div className="flex items-center gap-3">
+                        <MiniRing percent={module.percent} />
+                        <span className="text-sm font-semibold text-gray-500">{module.progress}</span>
+                      </div>
+                    </button>
+                    {isExpanded && (
+                      <div className="border-t border-gray-100 px-5 pb-5">
+                        <div className="flex items-center gap-3 py-3">
+                          <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-indigo-500 rounded-full" style={{ width: module.percent + "%" }} />
+                          </div>
+                          <span className="text-sm font-semibold text-gray-500">{module.percent}%</span>
+                        </div>
+                        <div className="space-y-2">
+                          {module.lessons.map((lesson, li) => (
+                            <div key={li} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-50">
+                              <div className="flex items-center gap-3">
+                                <span className={"flex h-2.5 w-2.5 rounded-full shrink-0 " + (lesson.status === "done" ? "bg-green-500" : lesson.status === "current" ? "bg-orange-400" : "bg-gray-300")} />
+                                <span className="text-sm text-gray-700">{lesson.title}</span>
+                              </div>
+                              <span className={"text-xs font-medium shrink-0 " + (lesson.status === "done" ? "text-green-600" : lesson.status === "current" ? "text-orange-500" : "text-gray-400")}>
+                                {lesson.status === "done" ? "เรียนจบ" : lesson.status === "current" ? "เรียนอยู่" : "ยังไม่เรียน"}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <div className="mt-8 text-center">
-              <Link
-                href="/courses/intro-to-generative-ai/curriculum"
-                className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-orange-600"
-              >
-                เข้าสู่คอร์สเรียน
+              <Link href="/courses/intro-to-generative-ai/curriculum" className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-4 text-lg font-bold text-white shadow-lg hover:bg-orange-600 transition hover:shadow-xl">
+                เริ่มเรียนต่อ →
               </Link>
-              <p className="mt-4 text-sm text-gray-500">
-                พร้อมรับใบประกาศนียบัตรเมื่อเรียนจบคอร์ส! 🎁
-              </p>
             </div>
           </motion.div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }
