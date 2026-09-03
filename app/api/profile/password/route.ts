@@ -19,6 +19,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "รหัสผ่านใหม่ต้องมีอย่างน้อย 8 ตัว" }, { status: 400 });
   }
 
+  if (!/[A-Z]/.test(newPassword)) {
+    return NextResponse.json({ error: "รหัสผ่านใหม่ต้องมีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว" }, { status: 400 });
+  }
+
+  if (!/[a-z]/.test(newPassword)) {
+    return NextResponse.json({ error: "รหัสผ่านใหม่ต้องมีตัวพิมพ์เล็กอย่างน้อย 1 ตัว" }, { status: 400 });
+  }
+
+  if (!/[0-9]/.test(newPassword)) {
+    return NextResponse.json({ error: "รหัสผ่านใหม่ต้องมีตัวเลขอย่างน้อย 1 ตัว" }, { status: 400 });
+  }
+
   const user = await prisma.user.findUnique({ where: { id: session.userId } });
   if (!user) {
     return NextResponse.json({ error: "ไม่พบผู้ใช้" }, { status: 404 });

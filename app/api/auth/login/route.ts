@@ -2,9 +2,20 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { signSession } from "@/lib/session";
+import { checkRateLimit, getIPFromRequest } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
+    const ip = getIPFromRequest(request);
+    const { allowed, remaining } = checkRateLimit(`login:${ip}`, 5, 60000);
+
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "ลองใหม่อีกครั้งใน 1 นาที (จำกัด 5 ครั้ง/นาที)" },
+        { status: 429 }
+      );
+    }
+
     const { email, password } = await request.json();
 
     if (!email || !password) {

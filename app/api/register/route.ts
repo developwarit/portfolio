@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { checkRateLimit, getIPFromRequest } from "@/lib/rate-limit";
 
 // Zod schema สำหรับ validate ข้อมูล
 const registerSchema = z.object({
@@ -17,6 +18,16 @@ const registerSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    const ip = getIPFromRequest(request);
+    const { allowed, remaining } = checkRateLimit(`register:${ip}`, 3, 60000);
+
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "ลองใหม่อีกครั้งใน 1 นาที (จำกัด 3 ครั้ง/นาที)" },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const result = registerSchema.safeParse(body);
 

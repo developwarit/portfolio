@@ -54,7 +54,7 @@ export default function BlogPage() {
               หน้าแรก
             </Link>
             <span>/</span>
-            <Link href="/blog" className="transition hover:text-white">
+            <Link href="/blog" className="transition hover:text-gray-900">
               บทความ
             </Link>
             <span>/</span>
@@ -120,11 +120,11 @@ export default function BlogPage() {
                 <p className="font-medium text-gray-900">19 กรกฎาคม 2569</p>
               </div>
               <div>
-                <p className="text-xs text-zinc-500">เวลาอ่าน</p>
-                <p className="font-medium text-white">6 นาที</p>
+                <p className="text-xs text-gray-500">เวลาอ่าน</p>
+                <p className="font-medium text-gray-900">6 นาที</p>
               </div>
               <div>
-                <p className="text-xs text-zinc-500">ยอดวิว</p>
+                <p className="text-xs text-gray-500">ยอดวิว</p>
                 <p className="font-medium text-gray-900"><ViewCounter slug="agentic-coding" /></p>
               </div>
             </div>
@@ -137,9 +137,9 @@ export default function BlogPage() {
             <motion.section {...fadeIn}>
               <p className="text-gray-900">
                 มันอ่าน codebase ทั้งโปรเจกต์ได้ แก้ไขไฟล์โค้ดได้โดยตรง รัน terminal commands ได้
-                และทำงานหลายขั้นตอนต่อเนื่องกันได้ สิ่งนี้เรียกว่า <strong className="text-white">Agentic Coding</strong>
+                และทำงานหลายขั้นตอนต่อเนื่องกันได้ สิ่งนี้เรียกว่า <strong className="text-blue-600 font-bold">Agentic Coding</strong>
               </p>
-              <p className="mt-4 text-zinc-400">
+              <p className="mt-4 text-gray-600">
                 หลายคนจึงคิดว่า &quot;ถ้า AI เขียนโค้ดได้แล้ว ฉันยังต้องเรียน Web Dev ทำไม?&quot;
               </p>
               <p className="mt-4 font-semibold text-gray-900">
@@ -152,13 +152,13 @@ export default function BlogPage() {
               <h2 className="mb-4 text-2xl font-bold text-gray-900">
                 Agentic Coding คืออะไรกันแน่?
               </h2>
-              <p className="text-zinc-400">
+              <p className="text-gray-600">
                 Agentic Coding ≠ แค่ถาม ChatGPT แล้วก็อปโค้ด
               </p>
-              <p className="mt-3 text-zinc-400">
+              <p className="mt-3 text-gray-600">
                 Agentic Coding คือการทำงานร่วมกับ AI ที่:
               </p>
-              <ul className="mt-3 space-y-2 text-zinc-400">
+              <ul className="mt-3 space-y-2 text-gray-600">
                 <li className="flex items-start gap-2 text-gray-700">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
                   <span>เข้าใจ context ทั้งโปรเจกต์ — อ่านไฟล์ทุกไฟล์ในโฟลเดอร์ได้</span>
@@ -186,13 +186,13 @@ export default function BlogPage() {
               <h2 className="mb-4 text-2xl font-bold text-gray-900">
                 ปัญหาที่เกิดขึ้นจริง: เมื่อคนไม่รู้พื้นฐานใช้ AI
               </h2>
-              <p className="text-zinc-400">
+              <p className="text-gray-600">
                 ลองนึกภาพสถานการณ์นี้: คุณสั่ง AI ว่า &quot;สร้างระบบ login
                 ให้หน่อย&quot; แล้ว AI ก็สร้างโค้ดมาให้ 200 บรรทัด คุณรัน npm run dev
                 แล้วเจอ error แดงๆ เต็มหน้าจอ
               </p>
-              <p className="mt-3 text-zinc-400">ถ้าคุณไม่รู้พื้นฐาน คุณจะ:</p>
-              <ul className="mt-3 space-y-2 text-zinc-400">
+              <p className="mt-3 text-gray-600">ถ้าคุณไม่รู้พื้นฐาน คุณจะ:</p>
+              <ul className="mt-3 space-y-2 text-gray-600">
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
                   <span>ก็อป error ไปถาม AI อีกครั้ง</span>
@@ -225,13 +225,13 @@ export default function BlogPage() {
 
               {/* Reason 1 */}
               <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                     1
                   </span>
                   สั่ง AI ได้ตรงและละเอียดกว่า
                 </h3>
-                <p className="mt-3 text-zinc-400">
+                <p className="mt-3 text-gray-600">
                   ความแตกต่างระหว่าง prompt ที่ดีกับไม่ดีมหาศาลมาก:
                 </p>
                 <div className="mt-3 rounded-lg bg-gray-800 p-4 font-mono text-sm">
@@ -247,13 +247,13 @@ export default function BlogPage() {
 
               {/* Reason 2 */}
               <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                     2
                   </span>
                   ตรวจสอบโค้ดที่ AI สร้างได้
                 </h3>
-                <p className="mt-3 text-zinc-400">
+                <p className="mt-3 text-gray-600">
                   AI ไม่ได้ถูกต้องเสมอไป มันอาจสร้างโค้ดที่มี security vulnerability,
                   ใช้ library ที่ deprecated หรือเขียน logic ที่ผิดพลาดใน edge case
                 </p>
@@ -261,13 +261,13 @@ export default function BlogPage() {
 
               {/* Reason 3 */}
               <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                     3
                   </span>
                   Debug ได้เองเมื่อเกิดปัญหา
                 </h3>
-                <p className="mt-3 text-zinc-400">
+                <p className="mt-3 text-gray-600">
                   คนที่รู้ JavaScript จะรู้ทันทีว่า TypeError: Cannot read properties of
                   undefined หมายความว่า object ที่คาดว่าจะมีค่าเป็น undefined อยู่
                 </p>
@@ -275,13 +275,13 @@ export default function BlogPage() {
 
               {/* Reason 4 */}
               <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                     4
                   </span>
                   ตัดสินใจด้าน Architecture ได้
                 </h3>
-                <p className="mt-3 text-zinc-400">
+                <p className="mt-3 text-gray-600">
                   AI เก่งในการ implement แต่ไม่รู้ว่า business ของคุณต้องการอะไร
                   คำถามเช่น &quot;ควรใช้ Server Component หรือ Client Component?&quot;
                   ต้องการความเข้าใจพื้นฐาน
@@ -290,13 +290,13 @@ export default function BlogPage() {
 
               {/* Reason 5 */}
               <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                     5
                   </span>
                   ไม่กลัวเมื่อ AI ทำพัง
                 </h3>
-                <p className="mt-3 text-zinc-400">
+                <p className="mt-3 text-gray-600">
                   คนที่รู้ Git จะ git stash, git log, git revert ได้ คนที่ไม่รู้จะ panic
                 </p>
               </div>
@@ -354,8 +354,8 @@ export default function BlogPage() {
                       {item.num}
                     </span>
                     <div>
-                      <h3 className="font-bold text-white">{item.title}</h3>
-                      <p className="mt-1 text-sm text-zinc-400">{item.desc}</p>
+                      <h3 className="font-bold text-gray-900">{item.title}</h3>
+                      <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -371,31 +371,31 @@ export default function BlogPage() {
                 <div className="space-y-4 font-mono text-sm text-gray-900">
                   <div>
                     <span className="text-blue-400">1. วางแผนก่อน</span>
-                    <p className="ml-6 text-zinc-500">└─ รู้ว่าต้องการ feature อะไร แบ่งเป็นขั้นตอนเล็กๆ</p>
+                    <p className="ml-6 text-gray-500">└─ รู้ว่าต้องการ feature อะไร แบ่งเป็นขั้นตอนเล็กๆ</p>
                   </div>
                   <div>
                     <span className="text-blue-400">2. Commit ก่อนเริ่ม</span>
-                    <p className="ml-6 text-zinc-500">└─ git add . &amp;&amp; git commit -m &quot;before: add feature&quot;</p>
+                    <p className="ml-6 text-gray-500">└─ git add . &amp;&amp; git commit -m &quot;before: add feature&quot;</p>
                   </div>
                   <div>
                     <span className="text-blue-400">3. ให้ Context ครบ</span>
-                    <p className="ml-6 text-zinc-500">└─ บอก tech stack, @mention ไฟล์ที่เกี่ยวข้อง</p>
+                    <p className="ml-6 text-gray-500">└─ บอก tech stack, @mention ไฟล์ที่เกี่ยวข้อง</p>
                   </div>
                   <div>
                     <span className="text-blue-400">4. สั่งทีละขั้น</span>
-                    <p className="ml-6 text-zinc-500">└─ ไม่สั่ง 10 อย่างพร้อมกัน ตรวจสอบก่อนไปขั้นถัดไป</p>
+                    <p className="ml-6 text-gray-500">└─ ไม่สั่ง 10 อย่างพร้อมกัน ตรวจสอบก่อนไปขั้นถัดไป</p>
                   </div>
                   <div>
                     <span className="text-blue-400">5. Review โค้ดที่ AI สร้าง</span>
-                    <p className="ml-6 text-zinc-500">└─ อ่านทุกบรรทัด ตรวจ security issues</p>
+                    <p className="ml-6 text-gray-500">└─ อ่านทุกบรรทัด ตรวจ security issues</p>
                   </div>
                   <div>
                     <span className="text-blue-400">6. Test ก่อน commit</span>
-                    <p className="ml-6 text-zinc-500">└─ รัน npm run dev ทดสอบ manual + npm test</p>
+                    <p className="ml-6 text-gray-500">└─ รัน npm run dev ทดสอบ manual + npm test</p>
                   </div>
                   <div>
                     <span className="text-blue-400">7. Commit หลังทำสำเร็จ</span>
-                    <p className="ml-6 text-zinc-500">└─ git commit -m &quot;feat: add payment with Stripe&quot;</p>
+                    <p className="ml-6 text-gray-500">└─ git commit -m &quot;feat: add payment with Stripe&quot;</p>
                   </div>
                 </div>
               </div>
@@ -409,7 +409,7 @@ export default function BlogPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-green-200 bg-green-50 p-5">
                   <h3 className="font-bold text-green-700">AI ทำได้ดีมาก ✅</h3>
-                  <ul className="mt-3 space-y-2 text-sm text-zinc-300">
+                  <ul className="mt-3 space-y-2 text-sm text-gray-700">
                     <li>• สร้าง boilerplate code</li>
                     <li>• แก้ TypeScript type errors</li>
                     <li>• เขียน unit tests</li>
@@ -419,7 +419,7 @@ export default function BlogPage() {
                 </div>
                 <div className="rounded-xl border border-orange-200 bg-orange-50 p-5">
                   <h3 className="font-bold text-orange-700">ต้องการคนควบคุม ⚠️</h3>
-                  <ul className="mt-3 space-y-2 text-sm text-zinc-300">
+                  <ul className="mt-3 space-y-2 text-sm text-gray-700">
                     <li>• Architecture decisions</li>
                     <li>• Security decisions</li>
                     <li>• UX/Product decisions</li>
@@ -436,14 +436,14 @@ export default function BlogPage() {
               <h2 className="mb-4 text-2xl font-bold text-gray-900">
                 บทสรุป: AI เป็นเครื่องมือ ไม่ใช่นาย
               </h2>
-              <p className="text-zinc-400">
+              <p className="text-gray-600">
                 คนที่รู้พื้นฐาน + ใช้ Agentic Coding = <strong className="text-green-400">ทีมที่ทรงพลังที่สุด</strong>
               </p>
-              <p className="mt-2 text-zinc-400">
+              <p className="mt-2 text-gray-600">
                 คนที่ไม่รู้พื้นฐาน + ใช้ Agentic Coding ={" "}
                 <strong className="text-red-400">ปัญหาที่ใหญ่กว่าเดิม</strong>
               </p>
-              <p className="mt-4 font-semibold text-white">
+              <p className="mt-4 font-semibold text-gray-900">
                 เริ่มต้นเรียนพื้นฐานวันนี้ แล้วคุณจะพบว่า Agentic Coding ทรงพลังแค่ไหนเมื่ออยู่ในมือของคนที่รู้ว่ากำลังทำอะไรอยู่
               </p>
             </motion.section>

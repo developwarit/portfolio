@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -52,100 +52,31 @@ const timestamps = [
   { time: '03:50:22', label: 'HTML CSS Mini Workshop', seconds: 13822 },
 ];
 
-function VideoPlayer({ onComplete }: { onComplete: () => void }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const maxTimeRef = useRef(60);
-  const last合法TimeRef = useRef(60);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      const saved = localStorage.getItem("htmlcss-progress");
-      const savedMax = localStorage.getItem("htmlcss-max");
-      if (saved) {
-        videoRef.current.currentTime = parseFloat(saved);
-        last合法TimeRef.current = parseFloat(saved);
-      } else {
-        videoRef.current.currentTime = 60;
-      }
-      if (savedMax) {
-        maxTimeRef.current = parseFloat(savedMax);
-      }
-    }
-  }, []);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const currentTime = videoRef.current.currentTime;
-      if (currentTime >= 14572) {
-        videoRef.current.pause();
-        onComplete();
-      }
-      if (currentTime > maxTimeRef.current) {
-        maxTimeRef.current = currentTime;
-        localStorage.setItem("htmlcss-max", maxTimeRef.current.toString());
-      }
-      if (currentTime >= 38 && currentTime <= maxTimeRef.current) {
-        last合法TimeRef.current = currentTime;
-        localStorage.setItem("htmlcss-progress", currentTime.toString());
-      }
-    }
-  };
-
-  const handleSeeking = () => {
-    if (videoRef.current) {
-      const t = videoRef.current.currentTime;
-      if (t > maxTimeRef.current || t < 60) {
-        videoRef.current.currentTime = last合法TimeRef.current;
-      }
-    }
-  };
-
-  const handleSeeked = () => {
-    if (videoRef.current) {
-      const t = videoRef.current.currentTime;
-      if (t > maxTimeRef.current || t < 60) {
-        videoRef.current.currentTime = last合法TimeRef.current;
-      }
-    }
-  };
-
-  const seekTo = (seconds: number) => {
-    if (videoRef.current && seconds >= 60 && seconds <= maxTimeRef.current) {
-      videoRef.current.currentTime = seconds;
-      last合法TimeRef.current = seconds;
-      localStorage.setItem("htmlcss-progress", seconds.toString());
-    }
-  };
-
-  return (
-    <div>
-      <div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black">
-        <video
-          ref={videoRef}
-          src="/videos/html-css-masterful.mp4"
-          controls
-          onTimeUpdate={handleTimeUpdate}
-          onSeeking={handleSeeking}
-          onSeeked={handleSeeked}
-          className="w-full aspect-video object-cover"
-        />
+function VideoPlayer({ videoId, tsList, startTime, endTime, durationLabel }: { videoId: string; tsList: typeof timestamps; startTime: number; endTime: number; durationLabel: string }) {
+  const [playing, setPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(startTime);
+  const seekTo = (seconds: number) => { setCurrentTime(seconds); setPlaying(true); };
+  if (playing) {
+    return (<div><div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black">
+      <iframe src={"https://www.youtube.com/embed/" + videoId + "?autoplay=1&start=" + currentTime + "&end=" + endTime} className="w-full aspect-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
       </div>
-      <p className="mt-4 text-sm text-gray-500">กดข้ามไปเนื้อหาที่ต้องการได้เลย (แต่ข้ามได้เฉพาะจุดที่ดูถึงแล้วเท่านั้น)</p>
-      <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-        {timestamps.map((t, i) => (
-          <button
-            key={i}
-            onClick={() => seekTo(t.seconds)}
-            className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm hover:border-blue-400 hover:bg-blue-50 transition"
-          >
-            <span className="font-mono text-xs font-semibold text-blue-600 whitespace-nowrap">{t.time}</span>
-            <span className="text-gray-700 truncate">{t.label}</span>
-          </button>
-        ))}
+      <p className="mt-4 text-sm text-gray-500">กดข้ามไปเนื้อหาที่ต้องการได้เลย</p>
+      <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">{tsList.map((t, i) => (<button key={i} onClick={() => seekTo(t.seconds)} className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm hover:border-blue-400 hover:bg-blue-50 transition"><span className="font-mono text-xs font-semibold text-blue-600 whitespace-nowrap">{t.time}</span><span className="text-gray-700 truncate">{t.label}</span></button>))}</div></div>);
+  }
+  return (<div><div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black cursor-pointer group" onClick={() => setPlaying(true)}>
+    <img src={"https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg"} alt="Video thumbnail" className="w-full aspect-video object-cover" />
+    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition">
+      <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
+        <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
-  );
+    <div className="absolute bottom-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded">{durationLabel}</div>
+  </div>
+  <p className="mt-4 text-sm text-gray-500">กดเพื่อเริ่มเล่น หรือเลือกช่วงเวลาด้านล่าง</p>
+  <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">{tsList.map((t, i) => (<button key={i} onClick={() => seekTo(t.seconds)} className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm hover:border-blue-400 hover:bg-blue-50 transition"><span className="font-mono text-xs font-semibold text-blue-600 whitespace-nowrap">{t.time}</span><span className="text-gray-700 truncate">{t.label}</span></button>))}</div></div>);
 }
+
+
 
 const sections = [
   { title: "รายการเรียนทั้งหมด", lessons: [
@@ -174,8 +105,9 @@ export default function HtmlCssMasterfulPage() {
   const router = useRouter();
   const [tab, setTab] = useState("details");
   const [open, setOpen] = useState([0]);
-  const [completed, setCompleted] = useState(false);
+  
   const [mounted, setMounted] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const total = sections.reduce((s, sec) => s + sec.lessons.length, 0);
 
@@ -208,10 +140,10 @@ export default function HtmlCssMasterfulPage() {
       <div className="mx-auto max-w-5xl px-5 py-8">
         {tab==="details"&&<div>
           <h1 className="text-4xl font-bold text-gray-900">รายละเอียดคอร์ส</h1>
-          <p className="mt-3 text-sm text-gray-500">จาก <span className="font-semibold text-gray-700">MilerDev</span></p>
+          <Link href="/instructor/milerdev" className="mt-3 flex items-center gap-2 group"><div className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-transparent transition group-hover:ring-blue-300"><img src="/milerdev-profile.png" alt="MilerDev" className="h-full w-full object-cover" /></div><p className="text-sm text-gray-500">จาก <span className="font-semibold text-gray-700 group-hover:text-blue-600 transition">MilerDev</span></p></Link>
           <p className="mt-6 text-lg text-gray-700 leading-relaxed">คอร์สเรียน HTML CSS Masterful คอร์สเรียนที่พัฒนาทุกคนไปสู่การเขียนโค้ด HTML CSS พื้นฐานที่สำคัญที่สุด สำหรับการพัฒนาเว็บ พร้อมทั้งเรียนรู้การใช้ CSS ในการตกแต่งเว็บไซต์พร้อมระบบ Responsive และจัด Layout ด้วย Flexbox และ Grid</p>
           <div className="mt-8 flex flex-wrap gap-6 rounded-2xl border border-gray-200 bg-white p-6"><span className="text-sm text-gray-600">🕐 14 บทเรียน · 4 ชม. 4 นาที</span><span className="text-sm text-gray-600">📚 รวม 5 ห้อง</span><span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">ฟรี</span></div>
-          <div className="mt-8"><h2 className="text-xl font-bold text-gray-900 mb-4">วิดีโอการสอน</h2><VideoPlayer onComplete={() => setCompleted(true)} /></div>
+          <div className="mt-8"><h2 className="text-xl font-bold text-gray-900 mb-4">วิดีโอการสอน</h2><VideoPlayer videoId="EsIk1NO24s0" tsList={timestamps} startTime={61} endTime={14580} durationLabel="4:03:00" /></div>
         </div>}
         {tab==="curriculum"&&<div>
           <div className="flex items-center justify-between mb-6"><h1 className="text-3xl font-bold text-gray-900">เนื้อหาการเรียน</h1><span className="text-sm text-gray-500">{total} บท · 4 ชม. 4 นาที · 3 ห้อง</span></div>
@@ -226,12 +158,7 @@ export default function HtmlCssMasterfulPage() {
             <div className="mb-4 text-6xl">🎉</div>
             <h2 className="text-2xl font-bold text-gray-900">ยินดีด้วย!</h2>
             <p className="mt-3 text-gray-600">คุณเรียนคอร์สนี้จบแล้ว</p>
-            <button
-              onClick={() => setCompleted(false)}
-              className="mt-6 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-            >
-              ปิด
-            </button>
+            <button onClick={() => setCompleted(false)} className="mt-6 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">ปิด</button>
           </div>
         </div>
       )}

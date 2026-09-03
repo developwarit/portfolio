@@ -144,6 +144,7 @@ function FloatingElement({ children, delay = 0 }: { children: React.ReactNode; d
 export default function CoursesPage() {
   const [user, setUser] = useState<{id:string;name:string|null;email:string;image:string|null} | null>(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -176,7 +177,7 @@ className="flex items-center gap-1"
           >
             <span className="text-lg font-bold tracking-tight text-gray-900">dev.warit</span>
           </Link>
-          <div className="flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1">
             <Link href="/courses" className="rounded-full bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-100">
               หน้าหลัก
             </Link>
@@ -190,6 +191,21 @@ className="flex items-center gap-1"
               <Link href="/contact">ติดต่อ</Link>
             </span>
           </div>
+          {/* Hamburger Menu Button (Mobile) */}
+          <button
+            type="button"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 transition hover:bg-gray-100 md:hidden"
+            aria-label="Toggle menu"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {showMobileMenu ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              )}
+            </svg>
+          </button>
           <div className="flex items-center gap-3">
             {user ? (
               <div className="relative" ref={menuRef}>
@@ -234,7 +250,26 @@ className="flex items-center gap-1"
             
           </div>
         </div>
-      </header>
+      {/* Mobile Menu Dropdown */}
+      {showMobileMenu && (
+        <div className="border-t border-gray-200 bg-white md:hidden">
+          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-4">
+            <Link href="/courses" className="block rounded-lg px-4 py-3 text-left text-sm font-medium text-blue-600 bg-blue-50 transition hover:bg-blue-100">
+              หน้าหลัก
+            </Link>
+            <Link href="/blog" className="block rounded-lg px-4 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900">
+              บทความ
+            </Link>
+            <span className="block rounded-lg px-4 py-3 text-left text-sm font-medium text-gray-300 cursor-not-allowed">
+              เกี่ยวกับเรา
+            </span>
+            <Link href="/contact" className="block rounded-lg px-4 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900">
+              ติดต่อ
+            </Link>
+          </nav>
+        </div>
+      )}
+</header>
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16">
@@ -245,7 +280,7 @@ className="flex items-center gap-1"
               <p className="text-sm font-semibold text-orange-600">
                 🎓 สำหรับนักศึกษาวิทยาลัยเทคนิค กฟผ.แม่เมาะ
               </p>
-              <h1 className="mt-4 text-5xl font-black leading-tight text-gray-900 sm:text-6xl">
+              <h1 className="mt-4 text-2xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
                 AI + Data +
                 <br />
                 Software Dev <img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" />
@@ -263,14 +298,14 @@ className="flex items-center gap-1"
                   type="button"
                   className="rounded-xl bg-orange-500 px-6 py-3 text-sm font-bold text-gray-900 transition hover:bg-orange-600"
                 >
-                  <img src="/rocket.svg" alt="Rocket" className="inline-block h-8 w-8 sm:h-12 sm:w-12" /> เริ่มเรียนฟรี
+                  <img src="/rocket.svg" alt="Rocket" className="inline-block h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" /> เริ่มเรียนฟรี
                 </button>
               </div>
             </div>
 
             {/* Right Content - Code Editor */}
             <div className="flex justify-center lg:justify-end">
-              <TypingCodeCard />
+              <div className="w-full overflow-x-auto"><TypingCodeCard /></div>
             </div>
           </div>
         </div>
@@ -314,7 +349,7 @@ className="flex items-center gap-1"
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12">
             <p className="text-sm font-semibold text-blue-600">What You'll Learn</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.02em] text-gray-900">
+            <h2 className="mt-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-[-0.02em] text-gray-900">
               เรียนอะไรบ้าง?
             </h2>
           </div>
@@ -359,7 +394,7 @@ className="flex items-center gap-1"
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
           <p className="text-sm font-semibold text-orange-600">Why This Program?</p>
-          <h2 className="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
             ไม่ได้ทำมาเพื่อให้คุณจำโค้ด
           </h2>
           <p className="mt-4 text-2xl font-semibold text-orange-600">
@@ -388,7 +423,7 @@ className="flex items-center gap-1"
           <div className="mb-12 flex items-end justify-between">
             <div>
               <p className="text-sm font-semibold text-blue-600">คอร์สเรียนล่าสุด</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.02em] text-gray-900">
+              <h2 className="mt-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-[-0.02em] text-gray-900">
                 เลือกจากเนื้อหา และ บททดลองจริง
               </h2>
             </div>
@@ -473,7 +508,7 @@ className="flex items-center gap-1"
       <section className="py-16 bg-[#faf9f7]">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
           <p className="text-sm font-semibold text-blue-600">Why We Built This</p>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
             ทำไมเราถึงสร้างเว็บไซต์นี้?
           </h2>
           <p className="mt-6 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
@@ -546,7 +581,7 @@ className="flex items-center gap-1"
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-blue-600">Learning Path</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
                Learning Roadmap
             </h2>
             <p className="mt-4 text-gray-600">จาก 0 → สร้างโปรเจกต์ได้</p>
@@ -584,8 +619,8 @@ className="flex items-center gap-1"
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-purple-600">Vibe Coding</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              ⚡ Vibe Coding
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+               Vibe Coding
             </h2>
             <p className="mt-4 text-gray-600">จากไอเดีย → สู่โปรเจกต์จริง ด้วย AI</p>
           </div>
@@ -607,7 +642,7 @@ className="flex items-center gap-1"
                   <p className="text-sm text-gray-600">{item.desc}</p>
                 </div>
                 <span className="text-sm font-semibold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                  เริ่มเรียน →
+                  
                 </span>
               </div>
             ))}
@@ -621,21 +656,21 @@ className="flex items-center gap-1"
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-green-600">Real Projects</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              🛠️ จากการเรียน → สู่การสร้าง
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+               จากการเรียน → สู่การสร้าง
             </h2>
             <p className="mt-4 text-gray-600">เรียนรู้จากการลงมือทำ และเปลี่ยนความรู้ให้กลายเป็นผลงานจริง</p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "AI Chatbot", tech: "Next.js · AI · Supabase", desc: "โปรเจกต์ฝึกสร้าง Chatbot โดยใช้ AI เป็นตัวช่วย", status: "เสร็จแล้ว" },
-              { title: "Portfolio Website", tech: "React · Tailwind", desc: "เว็บไซต์ Portfolio สำหรับแสดงผลงาน", status: "เสร็จแล้ว" },
-              { title: "Dashboard App", tech: "Next.js · PostgreSQL", desc: "แดชบอร์ดสำหรับจัดการข้อมูล", status: "กำลังพัฒนา" },
+              { title: "AI Chatbot", tech: "Next.js · AI · Supabase", desc: "โปรเจกต์ฝึกสร้าง Chatbot โดยใช้ AI เป็นตัวช่วย", status: "เสร็จแล้ว", image: "/projects/ai-chatbot.png" },
+              { title: "Portfolio Website", tech: "React · Tailwind", desc: "เว็บไซต์ Portfolio สำหรับแสดงผลงาน", status: "เสร็จแล้ว", image: "/projects/portfolio.png" },
+              { title: "Dashboard App", tech: "Next.js · PostgreSQL", desc: "แดชบอร์ดสำหรับจัดการข้อมูล", status: "กำลังพัฒนา", image: "/projects/dashboard.png" },
             ].map((project, i) => (
               <div key={i} className="rounded-2xl border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300 hover:shadow-md">
-                <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <Rocket size={48} strokeWidth={1.5} className="text-gray-400" />
+                <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                  <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
@@ -660,7 +695,7 @@ className="flex items-center gap-1"
       {/* Submit Project CTA */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
             มีโปรเจกต์ของตัวเองแล้ว?
           </h2>
           <p className="mt-4 text-lg text-gray-600">
@@ -679,8 +714,8 @@ className="flex items-center gap-1"
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold text-blue-600">Resources</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              📚 แหล่งเรียนรู้
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+               แหล่งเรียนรู้
             </h2>
             <p className="mt-4 text-gray-600">เครื่องมือและแหล่งเรียนรู้ที่ช่วยให้การเริ่มต้นง่ายขึ้น</p>
           </div>
@@ -714,8 +749,8 @@ className="flex items-center gap-1"
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              🚀 ตัวอย่างผลงานนักเรียน
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+               ตัวอย่างผลงานนักเรียน
             </h2>
             <p className="mt-4 text-gray-600">
               ผลงานนักเรียนที่เริ่มจาก 0
@@ -752,7 +787,7 @@ className="flex items-center gap-1"
           <div className="grid gap-8 lg:grid-cols-[1fr_1.5fr] items-center">
             <div>
               <span className="text-6xl text-blue-500 font-serif">"</span>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 leading-tight">
                 พื้นฐานที่แกะแยกออกจากความกลัว
               </h2>
               <p className="mt-4 text-2xl font-bold text-blue-600">
@@ -778,7 +813,7 @@ className="flex items-center gap-1"
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
           <p className="text-sm font-semibold text-orange-600">Community</p>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
             🤝 อยากช่วยแบ่งปัน?
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">
@@ -800,7 +835,7 @@ className="flex items-center gap-1"
       {/* Start From Zero */}
       <section className="py-16 bg-[#faf9f7]">
         <div className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
             🚀 เริ่มจากศูนย์ก็สร้างได้
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-gray-600">

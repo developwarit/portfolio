@@ -86,7 +86,7 @@ export default function FigmaToCodePage() {
       <div className="mx-auto max-w-5xl px-5 py-8">
         {tab==="details"&&<div>
           <h1 className="text-4xl font-bold text-gray-900">Figma to Code</h1>
-          <p className="mt-3 text-sm text-gray-500">จาก <span className="font-semibold text-gray-700">Prinxesz X</span></p>
+          <Link href="/instructor/prinxesz-x" className="mt-3 flex items-center gap-2 group"><div className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-transparent transition group-hover:ring-blue-300"><img src="/prinxesz-profile.png" alt="Prinxesz X" className="h-full w-full object-cover" /></div><p className="text-sm text-gray-500">จาก <span className="font-semibold text-gray-700 group-hover:text-blue-600 transition">Prinxesz X</span></p></Link>
           
           <p className="mt-6 text-lg text-gray-700 leading-relaxed">คอร์ส Figma to Code จะพาทุกคนมาเรียนรู้การแปลง Web Design จาก Figma ให้เป็นหน้าเว็บที่ใช้งานได้จริง ทุกคนจะได้เรียนรู้หลักการวางโครงสร้าง HTML ที่ถูกต้อง, การเขียน CSS ทำให้เว็บ Responsive ด้วย Media query และการใช้ JavaScript สำหรับทำลูกเล่นเพิ่มเติมให้เว็บไซต์มีความสวยงามและน่าสนใจมากยิ่งขึ้น</p>
           

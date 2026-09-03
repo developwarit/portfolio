@@ -115,7 +115,7 @@ export function TableOfContents() {
                 สารบัญบทความ
               </h3>
               <motion.svg
-                className="h-4 w-4 text-zinc-400"
+                className="h-4 w-4 text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -145,7 +145,7 @@ export function TableOfContents() {
                         className={`block w-full rounded-lg px-3 py-2 text-left text-sm transition ${
                           activeId === s.id
                             ? "bg-blue-500/20 text-blue-400 font-medium"
-                            : "text-zinc-400 hover:text-white hover:bg-white/5"
+                            : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
                         }`}
                       >
                         {s.label}

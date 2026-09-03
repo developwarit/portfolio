@@ -1,86 +1,26 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function VideoPlayer() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const maxTimeRef = useRef(6);
-  const last合法TimeRef = useRef(6);
-  const endTime = 7012; // 1:56:52
-  const [showComplete, setShowComplete] = useState(false);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 6;
-    }
-  }, []);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const currentTime = videoRef.current.currentTime;
-      if (currentTime >= endTime) {
-        videoRef.current.pause();
-        setShowComplete(true);
-      }
-      if (currentTime > maxTimeRef.current) {
-        maxTimeRef.current = currentTime;
-      }
-      if (currentTime >= 6 && currentTime <= maxTimeRef.current) {
-        last合法TimeRef.current = currentTime;
-      }
-    }
-  };
-
-  const handleSeeking = () => {
-    if (videoRef.current) {
-      const t = videoRef.current.currentTime;
-      if (t > maxTimeRef.current || t < 6 || t > endTime) {
-        videoRef.current.currentTime = last合法TimeRef.current;
-      }
-    }
-  };
-
-  const handleSeeked = () => {
-    if (videoRef.current) {
-      const t = videoRef.current.currentTime;
-      if (t > maxTimeRef.current || t < 6 || t > endTime) {
-        videoRef.current.currentTime = last合法TimeRef.current;
-      }
-    }
-  };
+  const [playing, setPlaying] = useState(false);
 
   return (
     <div className="mt-6">
-      <div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black">
-        <video
-          ref={videoRef}
-          src="/videos/nodejs.mp4"
-          controls
-          onTimeUpdate={handleTimeUpdate}
-          onSeeking={handleSeeking}
-          onSeeked={handleSeeked}
-          className="w-full aspect-video object-cover"
-        />
-      </div>
-      <p className="mt-2 text-sm text-gray-500">⚠️ ไม่สามารถย้อนกลับก่อนวินาทีที่ 6 ได้</p>
-      
-      {showComplete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-8 text-center max-w-sm mx-4 shadow-xl">
-            <div className="text-5xl mb-4">🎉</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">ยินดีด้วย!</h3>
-            <p className="text-gray-600 mb-6">คุณเรียนจบคอร์สนี้แล้ว</p>
-            <button
-              onClick={() => setShowComplete(false)}
-              className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 transition"
-            >
-              ปิด
-            </button>
+      <div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black cursor-pointer group" onClick={() => setPlaying(true)}>
+        {!playing && <>
+          <img src="https://img.youtube.com/vi/VF_veXAZNw4/maxresdefault.jpg" alt="Video thumbnail" className="w-full aspect-video object-cover" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition">
+            <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
+              <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
           </div>
-        </div>
-      )}
+          <div className="absolute bottom-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded">1:56:52</div>
+        </>}
+        {playing && <iframe src="https://www.youtube.com/embed/VF_veXAZNw4?autoplay=1&start=6&end=7012" className="w-full aspect-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />}
+      </div>
     </div>
   );
 }
@@ -145,7 +85,7 @@ export default function NodejsModernWebPage() {
       <div className="mx-auto max-w-5xl px-5 py-8">
         {tab==="details"&&<div>
           <h1 className="text-4xl font-bold text-gray-900">NodeJS สำหรับการพัฒนาเว็บสมัยใหม่</h1>
-          <p className="mt-3 text-sm text-gray-500">จาก <span className="font-semibold text-gray-700">MilerDev</span></p>
+          <Link href="/instructor/milerdev" className="mt-3 flex items-center gap-2 group"><div className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-transparent transition group-hover:ring-blue-300"><img src="/milerdev-profile.png" alt="MilerDev" className="h-full w-full object-cover" /></div><p className="text-sm text-gray-500">จาก <span className="font-semibold text-gray-700 group-hover:text-blue-600 transition">MilerDev</span></p></Link>
           
           <p className="mt-6 text-lg text-gray-700 leading-relaxed">เรียนรู้ Node.js สำหรับผู้เริ่มต้น พัฒนา Backend และ API สำหรับเว็บไซต์สมัยใหม่ เรียนตั้งแต่พื้นฐาน JavaScript ไปจนถึงการสร้าง REST API และเชื่อมต่อ Database</p>
           
